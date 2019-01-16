@@ -25,7 +25,8 @@
 ## 4. 개발계획(Dev Plan)
  * iOS기반 애플리케이션으로 개발 예정 - Swift4 (추후 안드로이드 개발)
  * 크롤링 - Python 3.6 (Anaconda)
- * Django 사용
+ * cron/scheduler 사용
+ * ~~Django 사용, SqliteDB 구축, API 서버~~ => Firebase 사용 
 
 ---
 
@@ -34,7 +35,8 @@
     - 프로젝트 진행 계획 토의 및 발표
     - Adobe XD로 Application Prototype 제작 완료.             
     - 중앙대학교 CAUNOTICE, 학술정보원, 생활관(기숙사), 창의ICT공과대학, 소프트웨어학부 공지사항 크롤링 완료.
-
+ * 2018/01/15 ~ 01/16
+    - Python Program에서 Firebase Data set, update method 구현 완료
 ---
 
 ###### 이 프로젝트는 2019 CLUG Winter OpenSource Hackathon에서 진행되었습니다.
