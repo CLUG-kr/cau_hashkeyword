@@ -16,7 +16,6 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://cau-hashkeyword.firebaseio.com'
 })
 
-# As an admin, the app has access to read and write all data, regradless of Security Rules
 ref = db.reference('server/saving-data/crawling')
 
 
@@ -62,9 +61,9 @@ for item in range(len(title_list)):
 url_list = driver.find_element_by_id("tbody").find_elements_by_tag_name("li")
 for item in url_list:
     cau_url_list.append(cau_base_url + item.get_attribute("id").replace("board_",""))
-
+    
 date_list = driver.find_elements_by_class_name("txtInfo")
-for item in range(len(date_list)):
+for item in range(len(date_list)):    
     cau_date_list.append(date_list[item].find_element_by_class_name("date").text)
 
 driver.close()
@@ -129,7 +128,7 @@ else :
         dorm_title_list.append(item.find('span',class_='bbsTitle').get_text())
         dorm_url_list.append(item.find('a')['href'])
         dorm_date_list.append("20" + item.find_all('td',class_='t_c')[3].get_text())
-
+        
 #try-except 적용하기?
 
 
@@ -178,17 +177,8 @@ else:
         cse_title_list.append(re.sub('[\n\t\xa0]','',item.find('a').get_text())) # sub메소드 사용법 검토하기
         cse_url_list.append(csenotice_url + item.find_all('td')[2].find('a')['href'])
         cse_date_list.append(item.find_all('td')[4].get_text())
-
+        
 # 공지표시 되어있는 게시글 제목도 수집?
-
-
-# In[10]:
-
-
-result = []
-keyword = input("알림 받고자 하는 키워드를 입력해주세요! # ")
-result = [string for string in dorm_title_list if keyword in string]
-result
 
 
 # In[12]:
@@ -209,3 +199,4 @@ crawling_data['cse'] = {'title':cse_title_list, 'date':cse_date_list, 'url':cse_
 crawling_json = json.dumps(crawling_data, ensure_ascii=False, indent="\t")
 webpage_ref = ref.child('webpages')
 webpage_ref.set(json.loads(crawling_json))
+
