@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +17,47 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# HashKeyword" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nou-hz-PHc">
+                                <rect key="frame" x="87" y="254" width="202" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Nou-hz-PHc" secondAttribute="height" multiplier="101:18" id="k7J-dS-MVP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <color key="textColor" red="0.54117647058823526" green="0.54117647058823526" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XZ-8n-boE">
+                                <rect key="frame" x="339" y="31" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQv-Cm-OmL">
+                                <rect key="frame" x="16" y="31" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nW0-48-DlF">
+                                <rect key="frame" x="46" y="303.5" width="283" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="5H2-7V-Jlw"/>
+                                    <constraint firstAttribute="width" constant="283" id="jF7-qx-975"/>
+                                    <constraint firstAttribute="width" secondItem="nW0-48-DlF" secondAttribute="height" multiplier="283:69" id="lUF-xi-nZJ"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.96470588235294119" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Nou-hz-PHc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="234" id="2tJ-vw-a3M"/>
+                            <constraint firstItem="2XZ-8n-boE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="339" id="Kt3-l0-a5d"/>
+                            <constraint firstItem="nW0-48-DlF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="283.5" id="Y9E-xT-v9q"/>
+                            <constraint firstItem="2XZ-8n-boE" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="31" id="aIQ-vh-Uc9"/>
+                            <constraint firstItem="nW0-48-DlF" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="46" id="b7o-Oq-bCT"/>
+                            <constraint firstItem="Nou-hz-PHc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="87" id="bif-W4-g9o"/>
+                            <constraint firstItem="DQv-Cm-OmL" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="31" id="cHC-Ra-zAb"/>
+                            <constraint firstItem="DQv-Cm-OmL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="jdG-Jl-KnT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
