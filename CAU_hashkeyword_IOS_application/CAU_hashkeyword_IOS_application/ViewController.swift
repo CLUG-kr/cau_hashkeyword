@@ -18,3 +18,11 @@ class ViewController: UIViewController {
 
 }
 
+class DetailViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet var nameField: TextField!
+    @IBOutlet var serialNumberField: TextField!
+    @IBOutlet var valueField: TextField!
+    @IBOutlet var dateLabel: UILabel!
+}
+
