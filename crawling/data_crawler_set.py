@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import firebase_admin
@@ -19,7 +19,7 @@ firebase_admin.initialize_app(cred, {
 ref = db.reference('server/saving-data/crawling')
 
 
-# In[2]:
+# In[3]:
 
 
 from bs4 import BeautifulSoup
@@ -37,7 +37,7 @@ options.add_argument('window-size=1920x1080')
 options.add_argument('disable-gpu')
 
 
-# In[4]:
+# In[10]:
 
 
 cau_title_list = []
@@ -70,7 +70,7 @@ driver.close()
 # 혹은 list reverse 후, append 계속 사용 (단, reverse의 경우 O(n))
 
 
-# In[5]:
+# In[11]:
 
 
 lib_title_list = []
@@ -100,7 +100,7 @@ lib_sub_url = "?offset=0&max=20"
 driver.close()
 
 
-# In[6]:
+# In[14]:
 
 
 # 노란색 공지 부분만 가져온다
@@ -126,7 +126,7 @@ else :
 #try-except 적용하기?
 
 
-# In[7]:
+# In[13]:
 
 
 ict_title_list = []
@@ -153,7 +153,7 @@ else:
         ict_date_list.append(item.find_all('td')[2].get_text())
 
 
-# In[8]:
+# In[10]:
 
 
 # 공지표시 되어있는 게시글 제목도 수집? (겹치는 내용임)
@@ -172,12 +172,13 @@ if csenotice_list == []:
     print("No data")
 else:
     for item in csenotice_list:
-        cse_title_list.append(re.sub('[\n\t\xa0]','',item.find('a').get_text())) # sub메소드 사용법 검토하기
-        cse_url_list.append(csenotice_url + item.find_all('td')[2].find('a')['href'])
-        cse_date_list.append(item.find_all('td')[4].get_text())
+        if item.find('td').get_text() != '':
+            cse_title_list.append(re.sub('[\n\t\xa0]','',item.find('a').get_text())) # sub메소드 사용법 검토하기
+            cse_url_list.append(csenotice_url + item.find_all('td')[2].find('a')['href'])
+            cse_date_list.append(item.find_all('td')[4].get_text())
 
 
-# In[9]:
+# In[15]:
 
 
 # Firebase에 크롤링한 데이터 저장하기

@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import firebase_admin
@@ -16,10 +16,8 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://cau-hashkeyword.firebaseio.com'
 })
 
-ref = db.reference('server/saving-data/crawling')
 
-
-# In[2]:
+# In[3]:
 
 
 from bs4 import BeautifulSoup
@@ -92,7 +90,7 @@ print("--- %s seconds ---" %(time.time() - start_time))
 driver.close()
 
 
-# In[5]:
+# In[11]:
 
 
 # 모든 데이터를 한꺼번에 다시 update 하는 version2 (현재사용:o)
@@ -123,7 +121,7 @@ for item in board_list:
 driver.close()
 
 
-# In[6]:
+# In[12]:
 
 
 ref = db.reference('server/saving-data/crawling/webpages/library')
@@ -154,7 +152,7 @@ lib_sub_url = "?offset=0&max=20"
 driver.close()
 
 
-# In[7]:
+# In[18]:
 
 
 # 노란색 공지 부분만 가져온다
@@ -175,13 +173,14 @@ if dormnotice_list == []:
 else :
     # url로 비교하기.
     for item in dormnotice_list:
-        if dorm_url_list[length - 1] == item.find('a')['href']: break
-        dorm_title_list.insert(length, item.find('span',class_='bbsTitle').get_text())
-        dorm_date_list.insert(length, "20" + item.find_all('td',class_='t_c')[3].get_text())
-        dorm_url_list.insert(length, item.find('a')['href'])
+        if item.find('span').find('img') == None: break
+        if dorm_url_list[length - 1] != item.find('a')['href']:
+            dorm_title_list.insert(length, item.find('span',class_='bbsTitle').get_text())
+            dorm_date_list.insert(length, "20" + item.find_all('td',class_='t_c')[3].get_text())
+            dorm_url_list.insert(length, item.find('a')['href'])
 
 
-# In[8]:
+# In[14]:
 
 
 ref = db.reference('server/saving-data/crawling/webpages/ict')
@@ -210,7 +209,7 @@ else:
         ict_url_list.insert(length, ict_base_url + item.find('td',class_='cont').find('a')['href'][-7:-3] + ict_sub_url)
 
 
-# In[9]:
+# In[5]:
 
 
 ref = db.reference('server/saving-data/crawling/webpages/cse')
@@ -229,14 +228,15 @@ if csenotice_list == []:
     print("No data")
 else:
     for item in csenotice_list:
-        if cse_url_list[length - 1] == csenotice_url + item.find_all('td')[2].find('a')['href']: break
-        # 근데 cse 페이지는 특이사항이라서, 파란 공지 부분을 비교하면 안될텐데..
-        cse_title_list.insert(length, re.sub('[\n\t\xa0]','',item.find('a').get_text()))
-        cse_date_list.insert(length, item.find_all('td')[4].get_text())
-        cse_url_list.insert(length, csenotice_url + item.find_all('td')[2].find('a')['href'])
+        # 파란색 공지 부분 제외
+        if item.find('td').get_text() != '':
+            if cse_url_list[length - 1] == csenotice_url + item.find_all('td')[2].find('a')['href']: break
+            cse_title_list.insert(length, re.sub('[\n\t\xa0]','',item.find('a').get_text()))
+            cse_date_list.insert(length, item.find_all('td')[4].get_text())
+            cse_url_list.insert(length, csenotice_url + item.find_all('td')[2].find('a')['href'])
 
 
-# In[10]:
+# In[19]:
 
 
 # Firebase에 새로 추가된 게시물 업데이트
@@ -252,5 +252,6 @@ new_crawling_data['ict'] = {'title':ict_title_list, 'date':ict_date_list, 'url':
 new_crawling_data['cse'] = {'title':cse_title_list, 'date':cse_date_list, 'url':cse_url_list}
 
 new_crawling_json = json.dumps(new_crawling_data, ensure_ascii=False, indent="\t")
+ref = db.reference('server/saving-data/crawling')
 webpage_ref = ref.child('webpages')
-webpage_ref.set(json.loads(new_crawling_json))
+webpage_ref.update(json.loads(new_crawling_json)) # set
