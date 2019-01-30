@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputField: UITextField!
     @IBOutlet var outputField: UILabel!
-    
+    var keywords: [String?] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.inputField.frame.size.width = 283.0
@@ -25,21 +25,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.inputField.layer.shadowOpacity = 1.0
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+ /*
     @IBAction func insert(sender: AnyObject) {
-        
-        outputField.text=inputField.text;
-        inputField.text="";
-        
+        let keywords = UserDefaults.standard
+        setting.set(birthdayPicker.date, forKey: BIRTHDAY_KEY)
+        setting.set(notiSwitch.isOn, forKey: NOTI_KEY)
+        setting.set(tintColorSegment.selectedSegmentIndex, forKey:
+            TINE_KEY)
     }
-    
+ */
     func textFieldShouldReturn(_ inputField: UITextField) -> Bool {
-        outputField.text = inputField.text
-        inputField.text = ""
+        keywords.append(inputField.text)
         inputField.resignFirstResponder();
         return true
     }
-
+/*
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
