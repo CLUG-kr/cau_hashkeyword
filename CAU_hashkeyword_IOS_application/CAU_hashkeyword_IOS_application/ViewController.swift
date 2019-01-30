@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var viewTextField: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,12 +25,3 @@ class ViewController: UIViewController {
     @IBAction func Setting(_ sender: Any) {
     }
 }
-
-class DetailViewController: UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet var nameField: TextField!
-    @IBOutlet var serialNumberField: TextField!
-    @IBOutlet var valueField: TextField!
-    @IBOutlet var dateLabel: UILabel!
-}
-
