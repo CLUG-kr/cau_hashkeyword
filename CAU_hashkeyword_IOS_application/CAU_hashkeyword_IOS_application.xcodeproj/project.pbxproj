@@ -7,12 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		091D8E3D22013809003228B9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091D8E3C22013809003228B9 /* SecondViewController.swift */; };
 		0915B64F22015F1500B33248 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0915B64E22015F1500B33248 /* CustomView.swift */; };
-		0936D2A821FD9A52003CDCF0 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 0936D2A421FD9A52003CDCF0 /* plus.png */; };
-		0936D2A921FD9A52003CDCF0 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0936D2A521FD9A52003CDCF0 /* Back.png */; };
-		0936D2AA21FD9A52003CDCF0 /* archive.png in Resources */ = {isa = PBXBuildFile; fileRef = 0936D2A621FD9A52003CDCF0 /* archive.png */; };
-		0936D2AB21FD9A52003CDCF0 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 0936D2A721FD9A52003CDCF0 /* settings.png */; };
 		09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2621FE981D0041D2A0 /* ListViewController.swift */; };
 		09753F2921FEA20A0041D2A0 /* ListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2821FEA20A0041D2A0 /* ListStorage.swift */; };
 		09B4DDA022016ADA0095CA2C /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B4DD9F22016ADA0095CA2C /* DesignableView.swift */; };
@@ -45,7 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		091D8E3C22013809003228B9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		0915B64E22015F1500B33248 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		0936D2A421FD9A52003CDCF0 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plus.png; path = Assets.xcassets/AppIcon.appiconset/plus.png; sourceTree = "<group>"; };
 		0936D2A521FD9A52003CDCF0 /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Back.png; path = Assets.xcassets/AppIcon.appiconset/Back.png; sourceTree = "<group>"; };
@@ -119,7 +113,6 @@
 		09F8502E21E6F667002F16DA /* CAU_hashkeyword_IOS_application */ = {
 			isa = PBXGroup;
 			children = (
-				09F8503321E6F667002F16DA /* Main.storyboard */,
 				6742B9EB2201665C0076B45B /* DataCenter.swift */,
 				09F8502F21E6F667002F16DA /* AppDelegate.swift */,
 				0915B64E22015F1500B33248 /* CustomView.swift */,
@@ -128,11 +121,11 @@
 				09753F2621FE981D0041D2A0 /* ListViewController.swift */,
 				09B4DD9F22016ADA0095CA2C /* DesignableView.swift */,
 				09F8503321E6F667002F16DA /* Main.storyboard */,
+				09F8503B21E6F668002F16DA /* LaunchScreen.storyboard */,
 				0936D2A621FD9A52003CDCF0 /* archive.png */,
 				0936D2A521FD9A52003CDCF0 /* Back.png */,
 				0936D2A421FD9A52003CDCF0 /* plus.png */,
 				0936D2A721FD9A52003CDCF0 /* settings.png */,
-				09F8503B21E6F668002F16DA /* LaunchScreen.storyboard */,
 				09F8503921E6F668002F16DA /* Assets.xcassets */,
 				09F8503E21E6F668002F16DA /* Info.plist */,
 				09F8503621E6F667002F16DA /* CAU_hashkeyword_IOS_application.xcdatamodeld */,
@@ -263,7 +256,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F8503D21E6F668002F16DA /* LaunchScreen.storyboard in Resources */,
-				6742B9EE220168EC0076B45B /* GoogleService-Info.plist in Resources */,
 				09F8503A21E6F668002F16DA /* Assets.xcassets in Resources */,
 				09F8503521E6F667002F16DA /* Main.storyboard in Resources */,
 			);
@@ -297,7 +289,6 @@
 				09F8503021E6F667002F16DA /* AppDelegate.swift in Sources */,
 				09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */,
 				6742B9EC2201665C0076B45B /* DataCenter.swift in Sources */,
-				0992EA4021EC2BB400E8C3B7 /* TextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
