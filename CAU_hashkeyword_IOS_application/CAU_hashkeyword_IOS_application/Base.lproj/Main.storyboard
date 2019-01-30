@@ -220,20 +220,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKr-5h-7FS">
-                                <rect key="frame" x="6" y="88" width="77" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="선택한 공지사항 사이트" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLg-aW-PUP">
-                                <rect key="frame" x="6" y="185" width="120" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" text="선택한 공지사항 사이트" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLg-aW-PUP">
+                                <rect key="frame" x="16" y="211" width="120" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gPo-sB-DR8">
-                                <rect key="frame" x="0.0" y="209" width="375" height="278"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gPo-sB-DR8">
+                                <rect key="frame" x="0.0" y="234" width="375" height="234"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -257,22 +253,22 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr0-r6-SXX">
-                                <rect key="frame" x="0.0" y="112" width="375" height="44.5"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr0-r6-SXX">
+                                <rect key="frame" x="0.0" y="117" width="375" height="45"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="jce-rA-FGs" kind="embed" id="FGm-iP-DOk"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKr-5h-7FS">
+                                <rect key="frame" x="16" y="98" width="77" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.96470588239999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="cKr-5h-7FS" firstAttribute="top" secondItem="kWi-PY-4Bg" secondAttribute="top" constant="88" id="AAv-Jx-e3S"/>
-                            <constraint firstItem="Gr0-r6-SXX" firstAttribute="top" secondItem="cKr-5h-7FS" secondAttribute="bottom" constant="8" id="CFX-18-RDi"/>
-                            <constraint firstItem="cKr-5h-7FS" firstAttribute="leading" secondItem="D8y-mQ-uKY" secondAttribute="leading" constant="6" id="akI-5s-oLW"/>
-                            <constraint firstItem="DLg-aW-PUP" firstAttribute="leading" secondItem="D8y-mQ-uKY" secondAttribute="leading" constant="6" id="rLR-5T-Vdg"/>
-                            <constraint firstItem="gPo-sB-DR8" firstAttribute="top" secondItem="DLg-aW-PUP" secondAttribute="bottom" constant="8" id="tML-zS-bkC"/>
-                            <constraint firstItem="DLg-aW-PUP" firstAttribute="top" secondItem="Gr0-r6-SXX" secondAttribute="bottom" constant="28.5" id="zZD-0e-WMg"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="D8y-mQ-uKY"/>
                     </view>
                     <navigationItem key="navigationItem" title="설정" id="h78-Ql-nUh"/>
@@ -286,7 +282,7 @@
             <objects>
                 <viewController id="jce-rA-FGs" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Osv-w9-PwJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="e2e-Dz-YvM" rowHeight="45" style="IBUITableViewCellStyleDefault" translatesAutoresizingMaskIntoConstraints="NO" id="0VF-vn-paR" customClass="UI">
