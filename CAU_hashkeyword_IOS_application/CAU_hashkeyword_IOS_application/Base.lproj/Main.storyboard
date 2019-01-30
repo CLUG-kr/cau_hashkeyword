@@ -46,7 +46,7 @@
                                 <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8tZ-5W-3k2" customClass="TextField" customModule="CAU_hashkeyword_IOS_application" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="viewTextField" contentHorizontalAlignment="fill" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8tZ-5W-3k2" customClass="DeisgnableView">
                                 <rect key="frame" x="46" y="271" width="283" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="69" id="6UU-Ze-zQ0"/>
@@ -64,7 +64,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-Tz-Yib">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="keyword" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-Tz-Yib">
                                 <rect key="frame" x="182" y="348" width="11" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -86,6 +86,26 @@
                             <constraint firstItem="McA-fq-pXr" firstAttribute="leading" secondItem="HQp-lM-OOZ" secondAttribute="leading" constant="87" id="vf0-gV-UYd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HQp-lM-OOZ"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="vYI-dc-yHe" customClass="UINavigation">
                         <barButtonItem key="backBarButtonItem" title="Home" id="fLQ-fW-YeO"/>
@@ -96,7 +116,7 @@
                                 <state key="normal" image="archive.png"/>
                             </button>
                             <connections>
-                                <segue destination="f4Z-Nk-038" kind="show" id="Lcs-Rw-rwB"/>
+                                <segue destination="f4Z-Nk-038" kind="show" id="3CP-w2-FCC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="wTY-OJ-yTI">
@@ -110,7 +130,7 @@
                                 </connections>
                             </button>
                             <connections>
-                                <segue destination="xD3-gZ-XB6" kind="show" id="dI6-7i-iKK"/>
+                                <segue destination="xD3-gZ-XB6" kind="show" id="9oT-J0-y8P"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
