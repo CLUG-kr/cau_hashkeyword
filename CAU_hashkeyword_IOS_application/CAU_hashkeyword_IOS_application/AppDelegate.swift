@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import Firebase
+// import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Firebase
         // Use Firebase library to configure APIs
-        FirebaseApp.configure()
+        // FirebaseApp.configure()
 
         // Override point for customization after application launch.
         // Sets background to a blank/empty image
