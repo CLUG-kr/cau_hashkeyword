@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0915B64F22015F1500B33248 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0915B64E22015F1500B33248 /* CustomView.swift */; };
 		09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2621FE981D0041D2A0 /* ListViewController.swift */; };
 		09753F2921FEA20A0041D2A0 /* ListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2821FEA20A0041D2A0 /* ListStorage.swift */; };
 		09F8503021E6F667002F16DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8502F21E6F667002F16DA /* AppDelegate.swift */; };
@@ -21,10 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0915B64E22015F1500B33248 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		09753F2621FE981D0041D2A0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		09753F2821FEA20A0041D2A0 /* ListStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStorage.swift; sourceTree = "<group>"; };
-		09B4DD9F22016ADA0095CA2C /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		09F8502C21E6F667002F16DA /* CAU_hashkeyword_IOS_application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CAU_hashkeyword_IOS_application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F8502F21E6F667002F16DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09F8503121E6F667002F16DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,11 +71,9 @@
 			children = (
 				6742B9EB2201665C0076B45B /* DataCenter.swift */,
 				09F8502F21E6F667002F16DA /* AppDelegate.swift */,
-				0915B64E22015F1500B33248 /* CustomView.swift */,
-				09F8503121E6F667002F16DA /* ViewController.swift */,
 				09753F2821FEA20A0041D2A0 /* ListStorage.swift */,
 				09753F2621FE981D0041D2A0 /* ListViewController.swift */,
-				09B4DD9F22016ADA0095CA2C /* DesignableView.swift */,
+				09F8503121E6F667002F16DA /* ViewController.swift */,
 				09F8503321E6F667002F16DA /* Main.storyboard */,
 				09F8503B21E6F668002F16DA /* LaunchScreen.storyboard */,
 				09F8503921E6F668002F16DA /* Assets.xcassets */,
@@ -224,7 +219,6 @@
 				09F8503821E6F667002F16DA /* CAU_hashkeyword_IOS_application.xcdatamodeld in Sources */,
 				09753F2921FEA20A0041D2A0 /* ListStorage.swift in Sources */,
 				09F8503221E6F667002F16DA /* ViewController.swift in Sources */,
-				0915B64F22015F1500B33248 /* CustomView.swift in Sources */,
 				09F8503021E6F667002F16DA /* AppDelegate.swift in Sources */,
 				09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */,
 				6742B9EC2201665C0076B45B /* DataCenter.swift in Sources */,

@@ -12,7 +12,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputField: UITextField!
     @IBOutlet var outputField: UILabel!
-    var keywords: [String?] = []
+    
+//    var keywordList = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.inputField.frame.size.width = 283.0
@@ -25,26 +27,53 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.inputField.layer.shadowOpacity = 1.0
         // Do any additional setup after loading the view, typically from a nib.
     }
- /*
-    @IBAction func insert(sender: AnyObject) {
-        let keywords = UserDefaults.standard
-        setting.set(birthdayPicker.date, forKey: BIRTHDAY_KEY)
-        setting.set(notiSwitch.isOn, forKey: NOTI_KEY)
-        setting.set(tintColorSegment.selectedSegmentIndex, forKey:
-            TINE_KEY)
-    }
- */
-    func textFieldShouldReturn(_ inputField: UITextField) -> Bool {
-        keywords.append(inputField.text)
-        inputField.resignFirstResponder();
-        return true
-    }
-/*
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-*/
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    // Called just before UITextField is edited
+    private func textFieldDidBeginEditing(_ inputField: UITextField) {
+        print("textFieldDidBeginEditing: \((inputField.text) ?? "Empty")")
+    }
+    
+    // Called immediately after UITextField is edited
+    private func textFieldDidEndEditing(_ inputField: UITextField) {
+        print("textFieldDidBeginEditing: \((inputField.text) ?? "Empty")")
+    }
+    
+    func textFieldShouldReturn(_ inputField: UITextField) -> Bool {
+        print("textFieldShouldReturn \((inputField.text) ?? "Empty")")
+//        keywordList.append(inputField.text)
+        // Process of closing the Keyboard when the line feed button is pressed.
+        inputField.resignFirstResponder();
+        var label: UILabel = {
+            // Label Create.
+            let label: UILabel = UILabel(frame: CGRect(x: 102.0, y: 346.0, width: 171.0, height: 20.0))
+            // Define background color.
+            label.backgroundColor = UIColor.clear
+            // Define text color.
+            label.textColor = UIColor.lightGray
+            // Define text font.
+            label.font = .systemFont(ofSize: 17, weight: .light)
+            // Define text of label.
+            // Define count of line.
+            // '0' is infinity label.numberOfLines = 0
+            // Round UILabel frame.
+            label.layer.masksToBounds = true
+            // Define text Alignment.
+            // options) .left, .right, .center, .justified, .natural
+            label.textAlignment = .center
+            
+//            for i in keywordList {
+//                label.text = label.text! + " #" + keywordList[i]
+//            }
+            
+            return label
+        }()
+            
+
+        return true
+    }
+    
 }
