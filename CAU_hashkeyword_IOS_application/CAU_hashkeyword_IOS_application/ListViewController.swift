@@ -9,7 +9,7 @@
 import UIKit
 
 class ListViewController: UITableViewController {
-    var list = [ListStorage]()
+    // var list = [ListStorage]()
     
     override func viewDidLoad() {
     }

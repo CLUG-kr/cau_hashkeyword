@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2621FE981D0041D2A0 /* ListViewController.swift */; };
-		09753F2921FEA20A0041D2A0 /* ListStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09753F2821FEA20A0041D2A0 /* ListStorage.swift */; };
 		09F8503021E6F667002F16DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8502F21E6F667002F16DA /* AppDelegate.swift */; };
 		09F8503221E6F667002F16DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F8503121E6F667002F16DA /* ViewController.swift */; };
 		09F8503521E6F667002F16DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09F8503321E6F667002F16DA /* Main.storyboard */; };
@@ -21,7 +20,6 @@
 
 /* Begin PBXFileReference section */
 		09753F2621FE981D0041D2A0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		09753F2821FEA20A0041D2A0 /* ListStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStorage.swift; sourceTree = "<group>"; };
 		09F8502C21E6F667002F16DA /* CAU_hashkeyword_IOS_application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CAU_hashkeyword_IOS_application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09F8502F21E6F667002F16DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09F8503121E6F667002F16DA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 			children = (
 				6742B9EB2201665C0076B45B /* DataCenter.swift */,
 				09F8502F21E6F667002F16DA /* AppDelegate.swift */,
-				09753F2821FEA20A0041D2A0 /* ListStorage.swift */,
 				09753F2621FE981D0041D2A0 /* ListViewController.swift */,
 				09F8503121E6F667002F16DA /* ViewController.swift */,
 				09F8503321E6F667002F16DA /* Main.storyboard */,
@@ -217,7 +214,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F8503821E6F667002F16DA /* CAU_hashkeyword_IOS_application.xcdatamodeld in Sources */,
-				09753F2921FEA20A0041D2A0 /* ListStorage.swift in Sources */,
 				09F8503221E6F667002F16DA /* ViewController.swift in Sources */,
 				09F8503021E6F667002F16DA /* AppDelegate.swift in Sources */,
 				09753F2721FE981D0041D2A0 /* ListViewController.swift in Sources */,
