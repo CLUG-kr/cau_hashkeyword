@@ -11,12 +11,32 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputField: UITextField!
-    @IBOutlet var outputField: UILabel!
-    
-//    var keywordList = []
+    @IBOutlet weak var keywordLabel: UILabel!
+    func show_keyword() {
+        // 등록한 키워드 보여주기
+        var keywordString:String = ""
+        for i in 0..<data_center.keyword.count{
+            keywordString += data_center.keyword[i]
+            if i+1 == data_center.keyword.count{
+                break
+            }
+            keywordString += ", "
+        }
+        keywordLabel?.text = keywordString
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        inputField.delegate = self // 키보드 내리는데 필요
+        inputField.returnKeyType = .done
+        
+
+        show_keyword()
+
+        inputField.placeholder = "키워드 입력하기" // 텍스트필드 값
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap) // 키보드
+
         self.inputField.frame.size.width = 283.0
         self.inputField.layer.borderWidth = 2.0
         self.inputField.layer.cornerRadius = 3.0
@@ -28,52 +48,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    // 키보드 완료 버튼 누르면 키보드 숨기기
+    // data_center에 키워드 추가하기
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let new_keword = inputField.text{
+            data_center.keyword.append(new_keword)
+        }
+        print(data_center.keyword)
+        inputField.text = "" // 텍스트필드 비우기
+        show_keyword()
+        self.view.endEditing(true)
+        return true
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    // Called just before UITextField is edited
-    private func textFieldDidBeginEditing(_ inputField: UITextField) {
-        print("textFieldDidBeginEditing: \((inputField.text) ?? "Empty")")
-    }
-    
-    // Called immediately after UITextField is edited
-    private func textFieldDidEndEditing(_ inputField: UITextField) {
-        print("textFieldDidBeginEditing: \((inputField.text) ?? "Empty")")
-    }
-    
-    func textFieldShouldReturn(_ inputField: UITextField) -> Bool {
-        print("textFieldShouldReturn \((inputField.text) ?? "Empty")")
-//        keywordList.append(inputField.text)
-        // Process of closing the Keyboard when the line feed button is pressed.
-        inputField.resignFirstResponder();
-        var label: UILabel = {
-            // Label Create.
-            let label: UILabel = UILabel(frame: CGRect(x: 102.0, y: 346.0, width: 171.0, height: 20.0))
-            // Define background color.
-            label.backgroundColor = UIColor.clear
-            // Define text color.
-            label.textColor = UIColor.lightGray
-            // Define text font.
-            label.font = .systemFont(ofSize: 17, weight: .light)
-            // Define text of label.
-            // Define count of line.
-            // '0' is infinity label.numberOfLines = 0
-            // Round UILabel frame.
-            label.layer.masksToBounds = true
-            // Define text Alignment.
-            // options) .left, .right, .center, .justified, .natural
-            label.textAlignment = .center
-            
-//            for i in keywordList {
-//                label.text = label.text! + " #" + keywordList[i]
-//            }
-            
-            return label
-        }()
-            
-
-        return true
-    }
-    
 }

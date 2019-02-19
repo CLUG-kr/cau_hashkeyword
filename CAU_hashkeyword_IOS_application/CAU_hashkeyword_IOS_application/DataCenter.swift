@@ -11,6 +11,7 @@ import Foundation
 var data_center:DataCenter = DataCenter()
 
 class DataCenter: NSObject, NSCoding {
+    var keyword:[String]
     var cau:Cau
 //    var lib:Lib
 //    var dorm:Dorm
@@ -18,13 +19,20 @@ class DataCenter: NSObject, NSCoding {
 //    var cse:Cse
 
     override init(){
+        self.keyword = ["장학","교환","입관"]
         self.cau = Cau()
     }
 
     public func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.keyword, forKey: "keyword")
         aCoder.encode(self.cau, forKey: "cau")
     }
     public required init?(coder aDecoder: NSCoder) {
+        if let keyword = aDecoder.decodeObject(forKey:"keyword") as? [String]{
+            self.keyword = keyword
+        } else {
+            self.keyword = []
+        }
         if let cau = aDecoder.decodeObject(forKey:"cau") as? Cau{
             self.cau = cau
         } else {
