@@ -31,12 +31,18 @@
 ---
 
 ## 5. 개발일지(Progress)
- * 2018/01/09 
+ * 2019/01/09 
     - 프로젝트 진행 계획 토의 및 발표
     - Adobe XD로 Application Prototype 제작 완료.             
     - 중앙대학교 CAUNOTICE, 학술정보원, 생활관(기숙사), 창의ICT공과대학, 소프트웨어학부 공지사항 크롤링 완료.
- * 2018/01/15 ~ 01/16
-    - Python Program에서 Firebase Data set, update method 구현 완료
+ * 2019/01/15 ~ 01/16
+    - Python Program에서 Firebase Data set, update method 구현 완료.
+ * 2019/02/01
+    - Firebase iOS SDK를 이용하여 App에 데이터 불러오기 성공.
+ * 2019/02/06
+    - DataCenter.swift 파일을 추가하여 App 내 데이터 저장 및 관리.
+ * 2019/02/06 ~
+    - 앱 아이콘 추가, 앱 디자인 수정 등
 ---
 
 ###### 이 프로젝트는 2019 CLUG Winter OpenSource Hackathon에서 진행되었습니다.
