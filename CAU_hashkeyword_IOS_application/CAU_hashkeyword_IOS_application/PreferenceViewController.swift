@@ -14,7 +14,6 @@ class PreferenceViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    
     override func viewDidLoad() {
     }
 }

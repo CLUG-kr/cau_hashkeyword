@@ -11,7 +11,10 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputField: UITextField!
-    @IBOutlet weak var keywordLabel: UILabel!
+    @IBOutlet weak var keywordTextView: UITextView!
+
+    @IBOutlet weak var keywordLabel: UILabel! // 이제 안씀
+
     func show_keyword() {
         // 등록한 키워드 보여주기
         var keywordString:String = ""
@@ -22,18 +25,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             keywordString += ", "
         }
-        keywordLabel?.text = keywordString
+        keywordTextView?.text = keywordString
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         inputField.delegate = self // 키보드 내리는데 필요
         inputField.returnKeyType = .done
-        
 
         show_keyword()
 
-        inputField.placeholder = "키워드 입력하기" // 텍스트필드 값
+        inputField.placeholder = "키워드 추가하기" // 텍스트필드 값
+        inputField.textAlignment = .center
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap) // 키보드
 

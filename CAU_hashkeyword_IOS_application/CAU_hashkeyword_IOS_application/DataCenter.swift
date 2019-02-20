@@ -19,7 +19,7 @@ class DataCenter: NSObject, NSCoding {
 //    var cse:Cse
 
     override init(){
-        self.keyword = ["장학","교환","입관"]
+        self.keyword = ["장학","교환학생","봉사","입관"]
         self.cau = Cau()
     }
 
