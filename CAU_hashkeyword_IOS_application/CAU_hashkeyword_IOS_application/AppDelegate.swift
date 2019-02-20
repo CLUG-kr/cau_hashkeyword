@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+// import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Firebase
         // Use Firebase library to configure APIs
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
 
         // Override point for customization after application launch.
         // Sets background to a blank/empty image
@@ -48,26 +48,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
-        let base_ref:String = "server/saving-data/crawling/webpages"
-        ref.child(base_ref + "/caunotice").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                switch snap.key{
-                case "date":
-                    data_center.cau.cau_date = snap.value as! [String]
-                case "title":
-                    data_center.cau.cau_title = snap.value as! [String]
-                case "url":
-                    data_center.cau.cau_url = snap.value as! [String]
-                default:
-                    print("Firebase reading error")
-                }
-            }
-        })
-    }
+//        var ref: DatabaseReference!
+//        ref = Database.database().reference()
+//        let base_ref:String = "server/saving-data/crawling/webpages"
+//        ref.child(base_ref + "/caunotice").observeSingleEvent(of: .value, with: { (snapshot) in
+//            for child in snapshot.children {
+//                let snap = child as! DataSnapshot
+//                switch snap.key{
+//                case "date":
+//                    data_center.cau.cau_date = snap.value as! [String]
+//                case "title":
+//                    data_center.cau.cau_title = snap.value as! [String]
+//                case "url":
+//                    data_center.cau.cau_url = snap.value as! [String]
+//               default:
+//                    print("Firebase reading error")
+//                }
+//            }
+//        })
+//    }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-    }
+//    func applicationWillTerminate(_ application: UIApplication) {
+//    }
+}
 }

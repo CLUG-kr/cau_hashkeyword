@@ -41,10 +41,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ath-7k-uG9">
-                                <rect key="frame" x="72" y="348" width="230" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ath-7k-uG9">
+                                <rect key="frame" x="72" y="348" width="230" height="319"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -72,6 +71,10 @@
                             <constraint firstItem="8tZ-5W-3k2" firstAttribute="leading" secondItem="zso-Fg-281" secondAttribute="leading" constant="46" id="BHN-QS-QDT"/>
                             <constraint firstItem="McA-fq-pXr" firstAttribute="top" secondItem="zso-Fg-281" secondAttribute="top" constant="234" id="D2Q-tG-GTo"/>
                             <constraint firstItem="8tZ-5W-3k2" firstAttribute="top" secondItem="zso-Fg-281" secondAttribute="top" constant="271" id="GrO-zh-Ru8"/>
+                            <constraint firstItem="ath-7k-uG9" firstAttribute="bottom" secondItem="HQp-lM-OOZ" secondAttribute="bottom" id="LdZ-ls-cMV"/>
+                            <constraint firstItem="HQp-lM-OOZ" firstAttribute="trailing" secondItem="ath-7k-uG9" secondAttribute="trailing" constant="73" id="SMP-ko-Ybu"/>
+                            <constraint firstItem="ath-7k-uG9" firstAttribute="top" secondItem="8tZ-5W-3k2" secondAttribute="bottom" constant="8" id="Unt-jU-yaT"/>
+                            <constraint firstItem="ath-7k-uG9" firstAttribute="leading" secondItem="HQp-lM-OOZ" secondAttribute="leading" constant="72" id="Z33-iR-7To"/>
                             <constraint firstAttribute="bottomMargin" secondItem="8tZ-5W-3k2" secondAttribute="bottom" constant="327" id="gfh-i0-kfk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="McA-fq-pXr" secondAttribute="bottom" constant="397" id="le3-aM-9I7"/>
                             <constraint firstItem="McA-fq-pXr" firstAttribute="leading" secondItem="HQp-lM-OOZ" secondAttribute="leading" constant="87" id="vf0-gV-UYd"/>
@@ -353,7 +356,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.056272871792316437" green="0.34488782286643982" blue="0.97635012865066528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.054901960784313725" green="0.34509803921568627" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="172-dk-xPY">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>

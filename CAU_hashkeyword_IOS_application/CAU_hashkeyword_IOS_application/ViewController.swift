@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             keywordString += ", "
         }
         keywordLabel?.text = keywordString
+        keywordLabel.sizeToFit()
     }
 
     override func viewDidLoad() {
