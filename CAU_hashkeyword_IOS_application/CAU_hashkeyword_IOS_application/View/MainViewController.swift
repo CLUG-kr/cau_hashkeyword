@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class MainViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputField: UITextField!
     @IBOutlet weak var keywordTextView: UITextView!
@@ -19,11 +19,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // 등록한 키워드 보여주기
         var keywordString:String = ""
         for i in 0..<data_center.keyword.count{
+            keywordString += "#"
             keywordString += data_center.keyword[i]
-            if i+1 == data_center.keyword.count{
-                break
-            }
-            keywordString += ", "
+            keywordString += " "
         }
         keywordTextView?.text = keywordString
     }
@@ -67,6 +65,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         show_keyword()
         self.view.endEditing(true)
         return true
+    }
+
+    // 상태바 색상 바꾸기
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
     override func didReceiveMemoryWarning() {
