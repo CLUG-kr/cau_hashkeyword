@@ -24,39 +24,41 @@ class WebsiteTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 7
     }
 
-    /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-
-        if let index = weekdays.index(of: (indexPath.row + 1)) {
-            weekdays.remove(at: index)
-            cell?.setSelected(true, animated: true)
-            cell?.setSelected(false, animated: false)
-            cell?.accessoryType = UITableViewCellAccessoryType.none
-        } else {
-            weekdays.append(indexPath.row + 1)
-            cell?.setSelected(true, animated: true)
-            cell?.setSelected(false, animated: false)
-            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
-        }
-    }*/
-
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        for web in data_center.selectedWebsite {
+            if web == indexPath.row {
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+            }
+        }
         // Configure the cell...
-
         return cell
     }
-    */
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+
+        if let index = data_center.selectedWebsite.index(of: (indexPath.row)) {
+            data_center.selectedWebsite.remove(at: index)
+            cell?.setSelected(true, animated: true)
+            cell?.setSelected(false, animated: false)
+            cell?.accessoryType = UITableViewCell.AccessoryType.none
+        } else {
+            data_center.selectedWebsite.append(indexPath.row)
+            cell?.setSelected(true, animated: true)
+            cell?.setSelected(false, animated: false)
+            cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
