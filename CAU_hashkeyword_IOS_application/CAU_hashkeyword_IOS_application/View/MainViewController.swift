@@ -29,24 +29,33 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         inputField.delegate = self // 키보드 내리는데 필요
-        inputField.returnKeyType = .done
+        inputField.returnKeyType = .done // keyboard 엔터 -> 완료
 
         show_keyword()
 
         inputField.placeholder = "키워드 추가하기" // 텍스트필드 값
-        inputField.textAlignment = .center
+        inputField.textAlignment = .center // 텍스트 위치
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap) // 키보드
 
-        self.inputField.frame.size.width = 283.0
-        self.inputField.layer.borderWidth = 2.0
-        self.inputField.layer.cornerRadius = 3.0
-        self.inputField.layer.borderColor = UIColor.lightGray.cgColor
-        self.inputField.layer.shadowRadius = 3.0
+        inputField.borderStyle = UITextField.BorderStyle.none
+        inputField.backgroundColor = UIColor.groupTableViewBackground
+        inputField.frame.size.width = 283.0
+        inputField.layer.borderWidth = 2.0
+        inputField.layer.cornerRadius = 3.0
+        inputField.layer.borderColor = UIColor.lightGray.cgColor
+
+        // when textField cornerRadius applied..
+        /*
+        let paddingView : UIView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: inputField.frame.height))
+        inputField.leftView = paddingView
+        inputField.leftViewMode = UITextField.ViewMode.always
+        */
+        // 그림자 설정
+        /*self.inputField.layer.shadowRadius = 3.0
         self.inputField.layer.shadowColor = UIColor.black.cgColor
         self.inputField.layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
-        self.inputField.layer.shadowOpacity = 1.0
-        // Do any additional setup after loading the view, typically from a nib.
+        self.inputField.layer.shadowOpacity = 1.0*/
     }
 
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함

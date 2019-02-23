@@ -15,6 +15,7 @@
 		09F8503D21E6F668002F16DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09F8503B21E6F668002F16DA /* LaunchScreen.storyboard */; };
 		469B1F7ADEEF351DD35F05EE /* Pods_CAU_hashkeyword_IOS_application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A1AC18D9CCEC4C50A49CBE8 /* Pods_CAU_hashkeyword_IOS_application.framework */; };
 		6742B9EC2201665C0076B45B /* DataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6742B9EB2201665C0076B45B /* DataCenter.swift */; };
+		67C685BB22217E2600040FC2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C685BA22217E2600040FC2 /* Extensions.swift */; };
 		67CB2969221D8F84007FE145 /* ArchiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2968221D8F84007FE145 /* ArchiveTableViewController.swift */; };
 		67CB296B221D9004007FE145 /* PreferenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */; };
 		67CB2971221D9582007FE145 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2970221D9582007FE145 /* TabBarController.swift */; };
@@ -32,6 +33,7 @@
 		09F8503E21E6F668002F16DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A1AC18D9CCEC4C50A49CBE8 /* Pods_CAU_hashkeyword_IOS_application.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CAU_hashkeyword_IOS_application.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6742B9EB2201665C0076B45B /* DataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCenter.swift; sourceTree = "<group>"; };
+		67C685BA22217E2600040FC2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		67CB2968221D8F84007FE145 /* ArchiveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveTableViewController.swift; sourceTree = "<group>"; };
 		67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceTableViewController.swift; sourceTree = "<group>"; };
 		67CB2970221D9582007FE145 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			children = (
 				6742B9EB2201665C0076B45B /* DataCenter.swift */,
 				09F8502F21E6F667002F16DA /* AppDelegate.swift */,
+				67C685BA22217E2600040FC2 /* Extensions.swift */,
 				67CB296E221D911B007FE145 /* View */,
 				67CB296F221D9162007FE145 /* Storyboard */,
 				09F8503921E6F668002F16DA /* Assets.xcassets */,
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09F8503821E6F667002F16DA /* CAU_hashkeyword_IOS_application.xcdatamodeld in Sources */,
+				67C685BB22217E2600040FC2 /* Extensions.swift in Sources */,
 				09F8503221E6F667002F16DA /* MainViewController.swift in Sources */,
 				67CB2973221D9FEB007FE145 /* WebsiteTableViewController.swift in Sources */,
 				67CB296B221D9004007FE145 /* PreferenceTableViewController.swift in Sources */,
