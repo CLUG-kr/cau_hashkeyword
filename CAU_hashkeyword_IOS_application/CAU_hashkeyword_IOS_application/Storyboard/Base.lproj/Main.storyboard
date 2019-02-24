@@ -52,6 +52,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;장학&quot; 키워드 등록 완료" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4w-nH-6d9">
+                                <rect key="frame" x="16" y="65" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="alarm" translatesAutoresizingMaskIntoConstraints="NO" id="M4O-bF-fiq">
+                                <rect key="frame" x="154" y="123" width="67" height="68"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="관련 공지가 올라오면 알림 !" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJ1-UO-iHI">
+                                <rect key="frame" x="16" y="94" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.054901960780000002" green="0.34509803919999998" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -83,6 +101,9 @@
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="AniImage" destination="M4O-bF-fiq" id="Zis-IM-dfC"/>
+                        <outlet property="AniLabel1" destination="w4w-nH-6d9" id="gdV-f4-FOP"/>
+                        <outlet property="AniLabel2" destination="FJ1-UO-iHI" id="Y1x-qJ-Qto"/>
                         <outlet property="inputField" destination="f5f-7u-HGr" id="aJP-NZ-vco"/>
                         <outlet property="keywordLabel" destination="ngy-PU-CUj" id="xPh-ab-RMg"/>
                         <outlet property="keywordTextView" destination="xDA-sZ-5EQ" id="1LN-ul-Ve3"/>
@@ -90,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5b-m8-NLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2502" y="-1079"/>
+            <point key="canvasLocation" x="2501.5999999999999" y="-1079.0104947526238"/>
         </scene>
         <!--타임라인-->
         <scene sceneID="8cC-0p-ydT">
@@ -618,7 +639,6 @@
         <!--타임라인-->
         <scene sceneID="VyT-ve-80G">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oKY-yg-A4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1vp-3B-UO2" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="타임라인" image="clock" selectedImage="clock" id="2fz-Zg-jj0">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
@@ -637,11 +657,13 @@
                         <segue destination="Qbz-Uk-Iac" kind="relationship" relationship="rootViewController" id="xw0-V0-I1J"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oKY-yg-A4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2502" y="-285"/>
         </scene>
     </scenes>
     <resources>
+        <image name="alarm" width="160" height="160"/>
         <image name="clock" width="40" height="40"/>
         <image name="hash" width="40" height="40"/>
         <image name="setting" width="40" height="40"/>

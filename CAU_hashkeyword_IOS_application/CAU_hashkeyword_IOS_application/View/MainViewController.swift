@@ -13,6 +13,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var inputField: UITextField!
     @IBOutlet weak var keywordTextView: UITextView!
 
+    @IBOutlet weak var AniLabel1: UILabel!
+    @IBOutlet weak var AniLabel2: UILabel!
+    @IBOutlet weak var AniImage: UIImageView!
+
     @IBOutlet weak var keywordLabel: UILabel! // 이제 안씀
 
     func show_keyword() {
@@ -26,7 +30,28 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         keywordTextView?.text = keywordString
     }
 
-    // Alert 주기.
+    func animateAlarm() {
+        // fade in 속도
+        UIView.animate(withDuration: 1.0, animations: {
+            self.AniLabel1.alpha = 1.0
+            self.AniLabel2.alpha = 1.0
+            self.AniImage.alpha = 1.0
+        }, completion: {
+            (Completed: Bool) -> Void in
+            // fade out 속도
+            UIView.animate(withDuration: 1.0, delay: 3.0, options: UIView.AnimationOptions.curveLinear, animations: {
+                self.AniLabel1.alpha = 0
+                self.AniLabel2.alpha = 0
+                self.AniImage.alpha = 0
+            }, completion: nil
+            // 반복하려면
+            /*{(Completed:Bool) -> Void in
+                self.animateAlarm()
+            }*/)
+        })
+    }
+
+    // Alert
     let inputAlert = UIAlertController(title:"어이쿠!", message:"키워드가 이미 존재하거나\r\n잘못된 입력입니다.", preferredStyle: .alert)
     let inputAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
@@ -36,16 +61,24 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 애니메이션
+        AniLabel1.alpha = 0
+        AniLabel2.alpha = 0
+        AniImage.alpha = 0
+
+        // 키보드
         inputField.delegate = self // 키보드 내리는데 필요
         inputField.returnKeyType = .done // keyboard 엔터 -> 완료
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap) // 제스처 인식
 
+        // 키워드 목록
         show_keyword()
 
+        // 텍스트 필드
         inputField.placeholder = "키워드 추가하기" // 텍스트필드 값
         inputField.textAlignment = .center // 텍스트 위치
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap) // 키보드
-
         inputField.borderStyle = UITextField.BorderStyle.none
         inputField.backgroundColor = UIColor.groupTableViewBackground
         inputField.frame.size.width = 283.0
@@ -65,14 +98,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         self.inputField.layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
         self.inputField.layer.shadowOpacity = 1.0*/
 
+        // 알림
         inputAlert.addAction(inputAlertAction)
         // 홈 버튼을 누르고 돌아오면 오류메시지 안보이기.
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: UIApplication.willResignActiveNotification, object: nil)
-
-        /*
-        notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: Notification.Name.UIApplication.willResignActiveNotification, object: nil)
-         */
     }
 
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
@@ -108,6 +138,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 data_center.keyword.append(new_keyword) // data_center에 키워드 추가하기
                 show_keyword()
                 // 알림드리겠습니당.
+                AniLabel1.text = "#" + new_keyword + " 키워드 등록 완료"
+                animateAlarm()
             }
         }
         print(data_center.keyword)
