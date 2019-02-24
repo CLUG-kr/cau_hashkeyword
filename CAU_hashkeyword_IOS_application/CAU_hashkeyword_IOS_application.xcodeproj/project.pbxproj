@@ -100,8 +100,8 @@
 			children = (
 				67CB2970221D9582007FE145 /* TabBarController.swift */,
 				09F8503121E6F667002F16DA /* MainViewController.swift */,
-				67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */,
 				67CB2968221D8F84007FE145 /* ArchiveTableViewController.swift */,
+				67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */,
 				67CB2972221D9FEB007FE145 /* WebsiteTableViewController.swift */,
 			);
 			path = View;
@@ -395,7 +395,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B5201DA5EE16F6E80354FE6F /* Pods-CAU_hashkeyword_IOS_application.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGKT2GH968;
@@ -417,7 +417,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 76D553F73A371F6049D881F1 /* Pods-CAU_hashkeyword_IOS_application.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon2;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGKT2GH968;

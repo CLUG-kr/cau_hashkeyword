@@ -27,7 +27,6 @@ class ArchiveTableViewController: UITableViewController {
     @IBOutlet var no_data_view: UIView!
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -68,7 +67,7 @@ class ArchiveTableViewController: UITableViewController {
     // 셀의 Row 값 설정
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 60.0;
+        return 70.0;
     }
 
     func showNotice(_ url: String) {
@@ -108,7 +107,7 @@ class ArchiveTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showNotice(data_center.cau.cau_url[indexPath.row]) // SFSafariViewController 띄우기
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

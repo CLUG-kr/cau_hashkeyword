@@ -21,9 +21,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         for i in 0..<data_center.keyword.count{
             keywordString += "#"
             keywordString += data_center.keyword[i]
-            keywordString += " "
+            keywordString += "  "
         }
         keywordTextView?.text = keywordString
+    }
+
+    // Alert 주기.
+    let inputAlert = UIAlertController(title:"어이쿠!", message:"키워드가 이미 존재하거나\r\n잘못된 입력입니다.", preferredStyle: .alert)
+    let inputAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
+
+    @objc func dismissFunc(){
+        self.inputAlert.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
@@ -56,6 +64,15 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         self.inputField.layer.shadowColor = UIColor.black.cgColor
         self.inputField.layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
         self.inputField.layer.shadowOpacity = 1.0*/
+
+        inputAlert.addAction(inputAlertAction)
+        // 홈 버튼을 누르고 돌아오면 오류메시지 안보이기.
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: UIApplication.willResignActiveNotification, object: nil)
+
+        /*
+        notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: Notification.Name.UIApplication.willResignActiveNotification, object: nil)
+         */
     }
 
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
@@ -63,16 +80,38 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
 
-    // 키보드 완료 버튼 누르면 키보드 숨기기
-    // data_center에 키워드 추가하기
+    // 키보드 완료 버튼
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let new_keword = inputField.text{
-            data_center.keyword.append(new_keword)
+        var flag_keyword:Bool = false
+        if let new_keyword = inputField.text {
+            // 겹치는 키워드가 있는지 확인
+            for keyword in data_center.keyword {
+                if new_keyword == keyword {
+                    flag_keyword = true
+                    break
+                }
+            }
+            // 공백으로만 이루어졌는지 확인 python의 isspace()
+            var space_count:Int = 0
+            for char in new_keyword {
+                if char == " " {
+                    space_count += 1
+                }
+            }
+            if space_count == new_keyword.count { flag_keyword = true }
+
+            if flag_keyword {
+                // 이미 있는 키워드입니당 or 공백만 있습니당
+                present(inputAlert, animated: true, completion: nil)
+            } else {
+                inputField.text = "" // 텍스트필드 비우기
+                data_center.keyword.append(new_keyword) // data_center에 키워드 추가하기
+                show_keyword()
+                // 알림드리겠습니당.
+            }
         }
         print(data_center.keyword)
-        inputField.text = "" // 텍스트필드 비우기
-        show_keyword()
-        self.view.endEditing(true)
+        self.view.endEditing(true) // 키보드 숨기기
         return true
     }
 

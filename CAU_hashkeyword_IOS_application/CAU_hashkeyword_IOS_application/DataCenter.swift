@@ -22,7 +22,7 @@ class DataCenter: NSObject, NSCoding {
     override init(){
         self.keyword = ["장학","교환학생","봉사","입관"]
         self.cau = Cau()
-        self.selectedWebsite = [0,1,2,3,4]
+        self.selectedWebsite = [0,1,2,4,5]
     }
 
     public func encode(with aCoder: NSCoder) {
