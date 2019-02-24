@@ -26,14 +26,31 @@ class ArchiveTableViewController: UITableViewController {
 
     @IBOutlet var no_data_view: UIView!
 
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 네비게이션 바
+        setupNavBar()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        // 키보드
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap) // 제스처 인식
+    }
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    func setupNavBar() {
+        // title 과 status bar 흰색으로 설정
+        navigationController?.navigationBar.barStyle = .black
+        // large title 사용 (only iOS 11?)
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+
     }
 
     /*
