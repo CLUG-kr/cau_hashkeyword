@@ -105,6 +105,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        show_keyword() // reload textView
+    }
+
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
     @objc func dismissKeyboard() {
         view.endEditing(true)

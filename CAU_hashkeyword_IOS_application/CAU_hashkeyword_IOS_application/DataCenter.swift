@@ -17,17 +17,20 @@ class DataCenter: NSObject, NSCoding {
 //    var dorm:Dorm
 //    var ict:Ict
 //    var cse:Cse
+    var website:[String]
     var selectedWebsite:[Int]
 
     override init(){
         self.keyword = ["장학","교환학생","봉사","입관"]
         self.cau = Cau()
-        self.selectedWebsite = [0,1,2,4,5]
+        self.website = ["CAU NOTICE (www.cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]
+        self.selectedWebsite = [0,1,2,3,4]
     }
 
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.keyword, forKey: "keyword")
         aCoder.encode(self.cau, forKey: "cau")
+        aCoder.encode(self.website, forKey: "website")
         aCoder.encode(self.selectedWebsite, forKey: "selectedWebsite")
     }
     public required init?(coder aDecoder: NSCoder) {
@@ -40,6 +43,11 @@ class DataCenter: NSObject, NSCoding {
             self.cau = cau
         } else {
             self.cau = Cau()
+        }
+        if let website = aDecoder.decodeObject(forKey:"website") as? [String]{
+            self.website = website
+        } else {
+            self.website = []
         }
         if let selectedWebsite = aDecoder.decodeObject(forKey:"selectedWebsite") as? [Int]{
             self.selectedWebsite = selectedWebsite

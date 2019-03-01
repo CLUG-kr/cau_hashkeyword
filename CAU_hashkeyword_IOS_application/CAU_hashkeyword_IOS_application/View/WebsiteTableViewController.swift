@@ -8,6 +8,15 @@
 
 import UIKit
 
+class WebsiteCell: UITableViewCell {
+    @IBOutlet weak var website_cell_label: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+}
+
 class WebsiteTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -29,19 +38,21 @@ class WebsiteTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 7
+        return data_center.website.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "websiteCell", for: indexPath)
+        guard let websiteCell = cell as? WebsiteCell else{
+            return cell
+        }
         for web in data_center.selectedWebsite {
             if web == indexPath.row {
-                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+                websiteCell.accessoryType = UITableViewCell.AccessoryType.checkmark
             }
         }
-        // Configure the cell...
-        return cell
+        websiteCell.website_cell_label.text = data_center.website[indexPath.row]
+        return websiteCell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -58,6 +69,8 @@ class WebsiteTableViewController: UITableViewController {
             cell?.setSelected(false, animated: false)
             cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
         }
+
+        data_center.selectedWebsite.sort() // 오름차순으로 정렬해 놓기
     }
     
     /*

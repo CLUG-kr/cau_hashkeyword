@@ -34,7 +34,6 @@ class ArchiveTableViewController: UITableViewController {
         super.viewDidLoad()
         // 네비게이션 바
         setupNavBar()
-
         // 키보드
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap) // 제스처 인식
@@ -47,6 +46,7 @@ class ArchiveTableViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
+        // 검색
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -54,23 +54,20 @@ class ArchiveTableViewController: UITableViewController {
     }
 
     /*
-     // 화면에 noData를 띄울지 결정.
-     override func numberOfSections(in tableView: UITableView) -> Int {
-     if dataCenter.studyList.count != 0
-     {
-     tableView.backgroundView = nil
-     // tableView.backgroundColor = UIColor().colorFromHex("#4C516D")
-     }
-     else
-     {
-     tableView.backgroundView = noDataView
-     }
-     return dataCenter.studyList.count
-     }
-     */
+    // 화면에 noData를 띄울지 결정.
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if dataCenter.studyList.count != 0 {
+            tableView.backgroundView = nil
+            // tableView.backgroundColor = UIColor().colorFromHex("#4C516D")
+        }
+        else {
+            tableView.backgroundView = noDataView
+        }
+        return dataCenter.studyList.count
+    }
+    */
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -113,7 +110,6 @@ class ArchiveTableViewController: UITableViewController {
         // 키워드 색깔만 파란색으로 설정
         let attributedStr = NSMutableAttributedString(string: infoCell.cell_detail.text!)
         attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:reference.count, length:data_center.keyword[1].count + 2))
-
         infoCell.cell_detail.attributedText = attributedStr
 
         infoCell.cell_date.text = data_center.cau.cau_date[indexPath.row]
