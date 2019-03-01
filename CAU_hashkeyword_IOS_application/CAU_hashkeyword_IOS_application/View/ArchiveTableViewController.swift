@@ -46,10 +46,13 @@ class ArchiveTableViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        // 검색
+        // 검색 (이것도 only iOS 11?)
         let searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+
+        searchController.searchBar.tintColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "키워드 검색", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
 
     }
 

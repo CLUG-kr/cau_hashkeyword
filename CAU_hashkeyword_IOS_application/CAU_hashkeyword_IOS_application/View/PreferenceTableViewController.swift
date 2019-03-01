@@ -8,10 +8,10 @@
 
 import UIKit
 
-class AlertCell: UITableViewCell {
+class NotiCell: UITableViewCell {
 
-    @IBOutlet weak var alert_cell_label: UILabel!
-    @IBOutlet weak var alert_cell_switch: UISwitch!
+    @IBOutlet weak var noti_cell_label: UILabel!
+    @IBOutlet weak var noti_cell_switch: UISwitch!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,11 +50,6 @@ class PreferenceTableViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,15 +91,25 @@ class PreferenceTableViewController: UITableViewController {
         }
     }
 
+    // 스위치 OnOff 상태 확인
+    @objc func switchChanged(_ sender : UISwitch!){
+        if sender.isOn {
+            data_center.notiOnOff = true
+        } else {
+            data_center.notiOnOff = false
+        }
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "alertCell", for: indexPath)
-            guard let alertCell = cell as? AlertCell else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "notiCell", for: indexPath)
+            guard let notiCell = cell as? NotiCell else {
                 return cell
             }
-            alertCell.alert_cell_label.text = "키워드 발견 시 알림"
-            return alertCell
+            notiCell.noti_cell_label.text = "키워드 발견 시 알림"
+            notiCell.noti_cell_switch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+            return notiCell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "keywordCell", for: indexPath)
             guard let keywordCell = cell as? KeywordCell else {
@@ -130,7 +135,7 @@ class PreferenceTableViewController: UITableViewController {
             }
             return selectedWebsiteCell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "alertCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "notiCell", for: indexPath)
             print("Preference Table Cell error")
             return cell
         }

@@ -202,7 +202,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="alertCell" id="QRh-un-n8W" customClass="AlertCell" customModule="CAU_hashkeyword_IOS_application" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="notiCell" id="QRh-un-n8W" customClass="NotiCell" customModule="CAU_hashkeyword_IOS_application" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QRh-un-n8W" id="XAh-cl-FSZ">
@@ -223,8 +223,8 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="alert_cell_label" destination="8Vb-MS-YHj" id="tVq-1M-aMf"/>
-                                    <outlet property="alert_cell_switch" destination="pbn-ZV-b9K" id="zIb-Lm-Ts4"/>
+                                    <outlet property="noti_cell_label" destination="8Vb-MS-YHj" id="mhb-1u-Xg2"/>
+                                    <outlet property="noti_cell_switch" destination="pbn-ZV-b9K" id="C0G-aU-gZj"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="keywordCell" id="S4M-rD-tNM" customClass="KeywordCell" customModule="CAU_hashkeyword_IOS_application" customModuleProvider="target">
