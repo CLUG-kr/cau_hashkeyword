@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
+
+        // 아래의 역할은 무엇인가
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
                 print("Faild to create a Firebase User with Google account: ", error)

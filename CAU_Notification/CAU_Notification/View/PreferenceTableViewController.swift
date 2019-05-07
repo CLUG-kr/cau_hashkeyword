@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class NotiCell: UITableViewCell {
 
@@ -43,15 +44,6 @@ class SelectedWebsiteCell: UITableViewCell {
 class LogoutCell: UITableViewCell {
 
     @IBOutlet weak var logout_cell_button_outlet: UIButton!
-    @IBAction func logout_cell_button(_ sender: Any) {
-        // Firebase에 등록되어 있는 계정 로그아웃하기
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -60,6 +52,44 @@ class LogoutCell: UITableViewCell {
 }
 
 class PreferenceTableViewController: UITableViewController {
+
+    // Firebase에 등록되어 있는 계정 로그아웃하기
+    @IBAction func logOutButton(_ sender: Any) {
+        let logOutSheet = UIAlertController(title: nil, message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
+
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let logOut = UIAlertAction(title: "로그아웃", style: .destructive) { action in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+
+                // 아래 코드로 로그아웃시 새로운 구글 계정으로 로그인할 수 있음.
+                GIDSignIn.sharedInstance().signOut()
+                //GIDSignIn.sharedInstance().disconnect()
+
+                let user = Auth.auth().currentUser
+
+                // 아래 코드는 데이터베이스에 있는 유저 데이터를 삭제하는 듯. 즉, 탈퇴시에만 하면 될듯.
+                /*
+                user?.delete { error in
+                    if let error = error {
+                        print("유저 삭제 에러")
+                        // An error happened.
+                    } else {
+                        print("유저 삭제 성공")
+                        // Account deleted.
+                    }
+                }
+                */
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+        }
+
+        logOutSheet.addAction(cancel)
+        logOutSheet.addAction(logOut)
+        present(logOutSheet, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

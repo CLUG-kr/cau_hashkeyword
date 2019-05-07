@@ -18,12 +18,15 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
         super.viewDidLoad()
 
         GIDSignIn.sharedInstance()?.uiDelegate = self
-        GIDSignIn.sharedInstance()?.signIn()
-
         // 구글 로그인 버튼 넓게
         GoogleSignInButton.style = .wide
-        // Do any additional setup after loading the view.
     }
+
+    @IBAction func googleSignInButton(_ sender: Any) {
+        // 구글 로그인 실행
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+
 
     // AppDelegate의 func didSingInForUser:withError 로 대체
 
