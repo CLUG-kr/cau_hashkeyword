@@ -1,0 +1,147 @@
+//
+//  DataCenter.swift
+//  CAU_hashkeyword_IOS_application
+//
+//  Created by Tars on 1/30/19.
+//  Copyright © 2019 Changsung Lim. All rights reserved.
+//
+
+import Foundation
+
+var data_center:DataCenter = DataCenter()
+
+class DataCenter: NSObject, NSCoding {
+    var keyword:[String]
+    var timeline:Timeline
+    var cau:Cau
+//    var lib:Lib
+//    var dorm:Dorm
+//    var ict:Ict
+//    var cse:Cse
+    var notiOnOff:Bool
+    var website:[String]
+    var selectedWebsite:[Int]
+
+    override init(){
+        self.keyword = ["장학","교환학생","봉사","입관"]
+        self.timeline = Timeline()
+        self.cau = Cau()
+        self.notiOnOff = true
+        self.website = ["CAU NOTICE (www.cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]
+        self.selectedWebsite = [0,1,2,3,4]
+    }
+
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.keyword, forKey: "keyword")
+        aCoder.encode(self.timeline, forKey: "timeline")
+        aCoder.encode(self.cau, forKey: "cau")
+        aCoder.encode(self.notiOnOff, forKey: "notiOnOff")
+        aCoder.encode(self.website, forKey: "website")
+        aCoder.encode(self.selectedWebsite, forKey: "selectedWebsite")
+    }
+    public required init?(coder aDecoder: NSCoder) {
+        if let keyword = aDecoder.decodeObject(forKey:"keyword") as? [String]{
+            self.keyword = keyword
+        } else {
+            self.keyword = []
+        }
+        if let timeline = aDecoder.decodeObject(forKey:"timeline") as? Timeline{
+            self.timeline = timeline
+        } else {
+            self.timeline = Timeline()
+        }
+        if let cau = aDecoder.decodeObject(forKey:"cau") as? Cau{
+            self.cau = cau
+        } else {
+            self.cau = Cau()
+        }
+        if let notiOnOff = aDecoder.decodeObject(forKey:"notiOnOff") as? Bool{
+            self.notiOnOff = notiOnOff
+        } else {
+            self.notiOnOff = true
+        }
+        if let website = aDecoder.decodeObject(forKey:"website") as? [String]{
+            self.website = website
+        } else {
+            self.website = []
+        }
+        if let selectedWebsite = aDecoder.decodeObject(forKey:"selectedWebsite") as? [Int]{
+            self.selectedWebsite = selectedWebsite
+        } else {
+            self.selectedWebsite = []
+        }
+    }
+}
+
+class Timeline: NSObject, NSCoding {
+    var tl_title:[String]
+    var tl_ref:[String]
+    var tl_date:[String]
+
+    override init() {
+        self.tl_title = []
+        self.tl_ref = []
+        self.tl_date = []
+    }
+
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.tl_title, forKey: "tl_title")
+        aCoder.encode(self.tl_ref, forKey: "tl_ref")
+        aCoder.encode(self.tl_date, forKey: "tl_date")
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        if let tl_title = aDecoder.decodeObject(forKey: "tl_title") as? [String]{
+            self.tl_title = tl_title
+        } else {
+            self.tl_title = []
+        }
+        if let tl_ref = aDecoder.decodeObject(forKey: "tl_ref") as? [String]{
+            self.tl_ref = tl_ref
+        } else {
+            self.tl_ref = []
+        }
+        if let tl_date = aDecoder.decodeObject(forKey: "tl_date") as? [String]{
+            self.tl_date = tl_date
+        } else {
+            self.tl_date = []
+        }
+    }
+}
+
+class Cau: NSObject, NSCoding{
+    var cau_date:[String]
+    var cau_title:[String]
+    var cau_url:[String]
+
+    override init(){
+        self.cau_date = []
+        self.cau_title = []
+        self.cau_url = []
+    }
+
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.cau_date, forKey: "cau_date")
+        aCoder.encode(self.cau_title, forKey: "cau_title")
+        aCoder.encode(self.cau_url, forKey: "cau_url")
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        if let cau_date = aDecoder.decodeObject(forKey:"cau_date") as? [String]{
+            self.cau_date = cau_date
+        } else {
+            self.cau_date = []
+        }
+        if let cau_title = aDecoder.decodeObject(forKey:"cau_title") as? [String]{
+            self.cau_title = cau_title
+        } else {
+            self.cau_title = []
+        }
+        if let cau_url = aDecoder.decodeObject(forKey:"cau_url") as? [String]{
+            self.cau_url = cau_url
+        } else {
+            self.cau_url = []
+        }
+    }
+}
+

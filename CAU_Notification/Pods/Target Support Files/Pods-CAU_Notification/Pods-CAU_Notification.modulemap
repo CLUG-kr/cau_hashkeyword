@@ -1,0 +1,6 @@
+framework module Pods_CAU_Notification {
+  umbrella header "Pods-CAU_Notification-umbrella.h"
+
+  export *
+  module * { export * }
+}
