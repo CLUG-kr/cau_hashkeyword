@@ -1,7 +1,7 @@
 # CAU 알림 (중앙대학교 키워드 알리미)
 
 ## 0. 아이콘(Icon)
-<img width="150" alt="white-ver" src="https://user-images.githubusercontent.com/38272356/53298781-eec92700-3875-11e9-8698-7661cdfa355f.png">
+<img width="150" alt="white-ver" src="https://user-images.githubusercontent.com/38272356/57304214-e44ec780-7119-11e9-9b42-4e1180e12845.png">
 
 ---
 
@@ -12,7 +12,7 @@
 ---
 
 ## 2. 멤버(Members)
- * [18changsung](https://github.com/18changsung), [AllyHyeseongKim](https://github.com/AllyHyeseongKim)
+ * [18changsung](https://github.com/18changsung)
  
 ---
 
@@ -43,10 +43,11 @@
     - DataCenter.swift 파일을 추가하여 App 내 데이터 저장 및 관리.
  * 2019/02/06 ~ 02/20
     - 앱 아이콘 추가, 앱 디자인 수정 등
- * 2019/02/20 ~
+ * 2019/02/20 ~ 03/01
     - 앱 UI 대부분 완성, 키워드 등록 및 DB와 비교 알고리즘 작성.
+    - iOS 앱 상에서 구현해야하는 Frontend/Backend 사실상 완료.
+ * 2019/05/07 ~
+    - Firebase를 이용한 Authentication 구현 (사용자 관리).
 ---
 
-~~###### 이 프로젝트는 2019 CLUG Winter OpenSource Hackathon에서 진행되었습니다.~~
-
-##### 이제 혼자하고 있습니다.. 아직도 갈 길이 멀어어
+##### 고독한 개발자
