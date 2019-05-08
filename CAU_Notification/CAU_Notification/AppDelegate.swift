@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import GoogleSignIn
 import UserNotifications
 
@@ -15,6 +16,9 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
+
+    // Firebase Database
+    var ref: DatabaseReference!
 
     // Alert
     let inputAlert = UIAlertController(title:"저런!", message:"인터넷이 연결되었는지 확인해주세요.", preferredStyle: .alert)
@@ -41,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                        accessToken: authentication.accessToken)
 
-        // 아래의 역할은 무엇인가
+        // Firebase Authentication에 인증하는 역할을 한다.
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
                 print("Faild to create a Firebase User with Google account: ", error)
@@ -53,6 +57,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
             self.window?.rootViewController = myTabBar
         }
+
+        // 구글 로그인후 Firebase에 사용자 정보 추가
+        ref = Database.database().reference()
+        // 여기서 초기화해야지 에러 안남. FirebaseApp.configure이 먼저 수행되어야 한다. (https://stackoverflow.com/questions/40322481/firebase-app-not-being-configured)
+
+        // let user = Auth.auth().currentUser로 하면 에러가 발생한다.
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                print("유저가 존재한다.")
+                // The user's ID, unique to the Firebase project.
+                // Do NOT use this value to authenticate with your backend server,
+                // if you have one. Use getTokenWithCompletion:completion: instead.
+                let uid = user.uid
+                let email = user.email
+                // Firebase Database에 정보추가
+                print(uid)
+                print(email)
+                let user_data = ["email": email!]
+                let childUpdates = ["users/\(uid)/": user_data]
+                self.ref.updateChildValues(childUpdates)
+            }
+        }
     }
 
     @objc func dismissFunc(){
@@ -63,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         // Firebase
         // Use Firebase library to configure APIs
+        print("이거먼저 시작합니다!!!")
         FirebaseApp.configure()
 
         /*
@@ -114,7 +141,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        var ref: DatabaseReference!
         ref = Database.database().reference()
         let base_ref:String = "server/saving-data/crawling/webpages"
         ref.child(base_ref + "/caunotice").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -132,6 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 }
             }
         })
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

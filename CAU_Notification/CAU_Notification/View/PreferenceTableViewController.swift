@@ -65,7 +65,8 @@ class PreferenceTableViewController: UITableViewController {
 
                 // 아래 코드로 로그아웃시 새로운 구글 계정으로 로그인할 수 있음.
                 GIDSignIn.sharedInstance().signOut()
-                //GIDSignIn.sharedInstance().disconnect()
+                // GIDSignIn.sharedInstance().disconnect() // 탈퇴용?
+                // (https://stackoverflow.com/questions/37936560/how-to-sign-out-of-google-after-being-authenticated)
 
                 let user = Auth.auth().currentUser
 

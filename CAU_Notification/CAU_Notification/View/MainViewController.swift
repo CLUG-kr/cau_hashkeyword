@@ -8,9 +8,13 @@
 
 import UIKit
 import UserNotifications
+import Firebase
 import FirebaseAuth
 
 class MainViewController: UIViewController, UITextFieldDelegate {
+
+    // Firebase Database
+    var ref: DatabaseReference!
 
     @IBOutlet var inputField: UITextField!
     @IBOutlet weak var keywordTextView: UITextView!
@@ -62,6 +66,10 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func viewDidLoad() {
+
+        // Firebase Configure
+        ref = Database.database().reference()
+
         // if Auth.auth.currentUser == nil은 왜 안될까?
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user == nil { // if let 구문으로 Storyboard 가져오기?
@@ -151,6 +159,17 @@ class MainViewController: UIViewController, UITextFieldDelegate {
             } else {
                 inputField.text = "" // 텍스트필드 비우기
                 data_center.keyword.append(new_keyword) // data_center에 키워드 추가하기
+
+                // Firebase Database에 사용자 키워드 업데이트
+                // 아래도 리스너로 하는 것이 안전할까?
+                let user = Auth.auth().currentUser
+                if let user = user {
+                    let uid = user.uid
+                    let user_data = ["keywords": data_center.keyword]
+                    let childUpdates = ["users/\(uid)/": user_data]
+                    ref.updateChildValues(childUpdates)
+                }
+
                 show_keyword()
                 // 알림드리겠습니당.
                 AniLabel1.text = "#" + new_keyword + " 키워드 등록 완료"
