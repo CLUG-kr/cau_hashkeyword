@@ -17,8 +17,9 @@
 ---
 
 ## 3. 사용자 인터페이스(User Interface)
- * Main View
- <img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/53298796-2c2db480-3876-11e9-8b10-800f56d3c5ad.jpeg">
+ * Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preference View 
+ 
+ <img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475936-6a147380-72d0-11e9-9b84-4fcd51e44b52.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
  
 ---
 
