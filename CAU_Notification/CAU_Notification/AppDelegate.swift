@@ -119,6 +119,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         print("디드피니쉬런칭위드옵션!!!!!!")
 
+        // 구글 로그인후 Firebase에 사용자 정보 추가
+        ref = Database.database().reference()
+
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                let base_ref:String = "users"
+                print("여기다여기다여긱이잉")
+                print(user.uid)
+                self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        switch snap.key{
+                        case "email":
+                            print("emailCheck")
+                        case "keywords":
+                            data_center.keyword = snap.value as! [String]
+                            print("키워드 실행되다. 으갸캬캬캬캬")
+                            print(data_center.keyword)
+                        default:
+                            print("Firebase reading error : User")
+                        }
+                    }
+                    // 이렇게 observe 안에 넣어주어야지 키워드를 불러오고 나서 Main을 보여준다.
+                    // 속도는 아주 살짝 느려지더라도 감수하기
+                    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
+                    self.window?.rootViewController = myTabBar
+                })
+            }
+        }
+
         /*
         inputAlert.addAction(inputAlertAction)
         // 홈 버튼을 누르고 돌아오면 오류메시지 안보이기.
