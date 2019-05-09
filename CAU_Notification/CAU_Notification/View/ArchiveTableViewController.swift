@@ -78,7 +78,7 @@ class ArchiveTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return data_center.cau.cau_title.count
+        return data_center.dorm.dorm_title.count
     }
 
     // 셀의 Row 값 설정
@@ -107,7 +107,7 @@ class ArchiveTableViewController: UITableViewController {
         var reference:String
         reference = "중앙대학교"
 
-        infoCell.cell_title.text = data_center.cau.cau_title[indexPath.row]
+        infoCell.cell_title.text = data_center.dorm.dorm_title[indexPath.row]
 
         infoCell.cell_detail.text = reference + " #" + data_center.keyword[1]
         // 키워드 색깔만 파란색으로 설정
@@ -115,13 +115,13 @@ class ArchiveTableViewController: UITableViewController {
         attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:reference.count, length:data_center.keyword[1].count + 2))
         infoCell.cell_detail.attributedText = attributedStr
 
-        infoCell.cell_date.text = data_center.cau.cau_date[indexPath.row]
+        infoCell.cell_date.text = data_center.dorm.dorm_date[indexPath.row]
 
         return infoCell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showNotice(data_center.cau.cau_url[indexPath.row]) // SFSafariViewController 띄우기
+        showNotice(data_center.dorm.dorm_url[indexPath.row]) // SFSafariViewController 띄우기
     }
     
     /*

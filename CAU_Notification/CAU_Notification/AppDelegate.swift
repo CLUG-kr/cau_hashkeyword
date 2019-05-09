@@ -40,6 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         }
         print("Successfully logged into Google", user)
 
+        // 구글 로그인후 Firebase에 사용자 정보 추가
+        ref = Database.database().reference()
+        // 여기서 초기화해야지 에러 안남. FirebaseApp.configure이 먼저 수행되어야 한다. (https://stackoverflow.com/questions/40322481/firebase-app-not-being-configured)
+
         // guard let idToken = user.authentication.idToken else { return }
         guard let authentication = user.authentication else { return }
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
@@ -51,34 +55,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print("Faild to create a Firebase User with Google account: ", error)
                 // 사용자에게 메시지?
             }
+            
+            let isNewUser = authResult?.additionalUserInfo?.isNewUser;
+            print("새로운 유저인가요요요요요?")
+            print(isNewUser!)
+            Auth.auth().addStateDidChangeListener { (auth, user) in
+                if let user = user {
+                    if(isNewUser!) { // 만약 처음 로그인한 유저라면 Firebase에 정보 추가
+                        // The user's ID, unique to the Firebase project.
+                        // Do NOT use this value to authenticate with your backend server,
+                        // if you have one. Use getTokenWithCompletion:completion: instead.
+                        let uid = user.uid
+                        let email = user.email
+                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"]] as [String : Any]
+                        let childUpdates = ["users/\(uid)/": user_data]
+                        self.ref.updateChildValues(childUpdates)
+                        // rootViewController 지정은 if문에도 남겨주어야 한다
+                        // 아래 else에서는 observe 안에 들어있기 때문이다
+                        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
+                        self.window?.rootViewController = myTabBar
+                    } else { // 기존에 Firebase Authentication에 있던 유저라면
+                        let base_ref:String = "users"
+                        self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
+                            for child in snapshot.children {
+                                let snap = child as! DataSnapshot
+                                switch snap.key{
+                                case "email":
+                                    print("emailCheck")
+                                case "keywords":
+                                    data_center.keyword = snap.value as! [String]
+                                    print("키워드 실행되다. 으갸캬캬캬캬")
+                                    print(data_center.keyword)
+                                default:
+                                    print("Firebase reading error : User")
+                                }
+                            }
+                            // 이렇게 observe 안에 넣어주어야지 키워드를 불러오고 나서 Main을 보여준다.
+                            // 속도는 아주 살짝 느려지더라도 감수하기
+                            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
+                            self.window?.rootViewController = myTabBar
+                        })
+                    }
+                }
+            }
             guard let uid = user.userID else { return }
             print("Successfully logged into Firebase with Google", uid)
-            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
-            self.window?.rootViewController = myTabBar
+
         }
 
-        // 구글 로그인후 Firebase에 사용자 정보 추가
-        ref = Database.database().reference()
-        // 여기서 초기화해야지 에러 안남. FirebaseApp.configure이 먼저 수행되어야 한다. (https://stackoverflow.com/questions/40322481/firebase-app-not-being-configured)
-
-        // let user = Auth.auth().currentUser로 하면 에러가 발생한다.
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                print("유저가 존재한다.")
-                // The user's ID, unique to the Firebase project.
-                // Do NOT use this value to authenticate with your backend server,
-                // if you have one. Use getTokenWithCompletion:completion: instead.
-                let uid = user.uid
-                let email = user.email
-                // Firebase Database에 정보추가
-                print(uid)
-                print(email)
-                let user_data = ["email": email!]
-                let childUpdates = ["users/\(uid)/": user_data]
-                self.ref.updateChildValues(childUpdates)
-            }
-        }
     }
 
     @objc func dismissFunc(){
@@ -89,8 +115,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         // Firebase
         // Use Firebase library to configure APIs
-        print("이거먼저 시작합니다!!!")
         FirebaseApp.configure()
+
+        print("디드피니쉬런칭위드옵션!!!!!!")
 
         /*
         inputAlert.addAction(inputAlertAction)
@@ -142,19 +169,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         ref = Database.database().reference()
-        let base_ref:String = "server/saving-data/crawling/webpages"
-        ref.child(base_ref + "/caunotice").observeSingleEvent(of: .value, with: { (snapshot) in
+        let base_ref:String = "crawling/webpages"
+        ref.child(base_ref + "/dorm").observeSingleEvent(of: .value, with: { (snapshot) in
             for child in snapshot.children {
                 let snap = child as! DataSnapshot
                 switch snap.key{
                 case "date":
-                    data_center.cau.cau_date = snap.value as! [String]
+                    data_center.dorm.dorm_date = snap.value as! [String]
                 case "title":
-                    data_center.cau.cau_title = snap.value as! [String]
+                    data_center.dorm.dorm_title = snap.value as! [String]
                 case "url":
-                    data_center.cau.cau_url = snap.value as! [String]
+                    data_center.dorm.dorm_url = snap.value as! [String]
                 default:
-                    print("Firebase reading error")
+                    print("Firebase reading error : Dormitory")
                 }
             }
         })

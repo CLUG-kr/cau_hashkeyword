@@ -30,15 +30,17 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
     // AppDelegate의 func didSingInForUser:withError 로 대체
 
-//    override func viewDidAppear(_ animated: Bool) {
-//        // 로그인 완료시
-//        if Auth.auth().currentUser != nil {
-//            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//            let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
-//            self.present(myTabBar, animated: true, completion: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        // 로그인 완료시
+//        Auth.auth().addStateDidChangeListener { (auth, user) in
+//            if let user = user {
+//                print("구원자인가요요용뇽뇨ㅛ뇽뇽뇨"ㅋ)
+//                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
+//                self.present(myTabBar, animated: true, completion: nil)
+//            }
 //        }
-//        // MainViewController에서 부르고 여기서 dismiss하기?
-//    }
+    }
 
 
     /*

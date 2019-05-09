@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import GoogleSignIn
+
+// Firebase Database
+var ref: DatabaseReference!
 
 class NotiCell: UITableViewCell {
 
@@ -93,6 +97,9 @@ class PreferenceTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+        // Firebase Configure
+        ref = Database.database().reference()
+        
         super.viewDidLoad()
         // tableview 편집 버튼
         self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -223,6 +230,15 @@ class PreferenceTableViewController: UITableViewController {
             if editingStyle == UITableViewCell.EditingStyle.delete {
                 data_center.keyword.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            }
+        }
+        // Firebase에도 반영하기
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                print("키워드를 삭제했다고오ㅗ오?")
+                let uid = user.uid
+                let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
+                ref.updateChildValues(childUpdates)
             }
         }
     }

@@ -67,6 +67,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
 
+        print("메인실행ㅇ이이이이잉")
         // Firebase Configure
         ref = Database.database().reference()
 
@@ -91,8 +92,9 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         self.view.addGestureRecognizer(tap) // 제스처 인식
 
+        print("키워드를 보여주자아아ㅏ아앙")
         // 키워드 목록
-        show_keyword()
+        self.show_keyword()
 
         // 텍스트 필드
         inputField.placeholder = "키워드 추가하기" // 텍스트필드 값
@@ -125,7 +127,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        show_keyword() // reload textView
+        self.show_keyword() // reload textView
+        print("비유디드어피어에서 알립니다아아아")
     }
 
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
@@ -165,8 +168,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 let user = Auth.auth().currentUser
                 if let user = user {
                     let uid = user.uid
-                    let user_data = ["keywords": data_center.keyword]
-                    let childUpdates = ["users/\(uid)/": user_data]
+                    let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
                     ref.updateChildValues(childUpdates)
                 }
 

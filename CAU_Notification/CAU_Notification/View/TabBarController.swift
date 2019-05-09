@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
     // var tabBarItem = UITabBarItem()
 
     override func viewDidLoad() {
+        print("탭바 실행!!!")
         super.viewDidLoad()
 
         // tab bar 색깔 (1)
