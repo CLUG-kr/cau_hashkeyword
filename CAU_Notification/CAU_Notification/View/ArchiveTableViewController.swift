@@ -34,9 +34,6 @@ class ArchiveTableViewController: UITableViewController {
         super.viewDidLoad()
         // 네비게이션 바
         setupNavBar()
-        // 키보드
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap) // 제스처 인식
     }
 
     func setupNavBar() {
