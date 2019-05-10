@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         // if you have one. Use getTokenWithCompletion:completion: instead.
                         let uid = user.uid
                         let email = user.email
-                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"]] as [String : Any]
+                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"], "selectedWebsite": ["CAU NOTICE (www.cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]] as [String : Any]
                         let childUpdates = ["users/\(uid)/": user_data]
                         self.ref.updateChildValues(childUpdates)
                         // rootViewController 지정은 if문에도 남겨주어야 한다
@@ -85,8 +85,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                     print("emailCheck")
                                 case "keywords":
                                     data_center.keyword = snap.value as! [String]
-                                    print("키워드 실행되다. 으갸캬캬캬캬")
                                     print(data_center.keyword)
+                                case "selectedWebsite":
+                                    let selectedWebsite = snap.value as! [String]
+                                    print(selectedWebsite)
+                                    data_center.selectedWebsite = []
+                                    // 이중 for문 okay..?
+                                    for websiteName in selectedWebsite {
+                                        var i = 0
+                                        for website in data_center.website {
+                                            if (websiteName == website) { // swift는 operator overloading임
+                                                data_center.selectedWebsite.append(i)
+                                            }
+                                            i += 1
+                                        }
+                                    }
+                                    print(data_center.selectedWebsite)
+                                    // data_center.website와 data_center.selectedWebsite를 딕셔너리로 안한 이유가 무엇이었을까?
                                 default:
                                     print("Firebase reading error : User")
                                 }
@@ -122,6 +137,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // 구글 로그인후 Firebase에 사용자 정보 추가
         ref = Database.database().reference()
 
+        // terminate 상태에서 Main으로 돌아올 때 실행되는 부분으로 Firebase에서 키워드 정보를 가져옴.
+        // 후에 아카이브로 해결할 예정.
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 let base_ref:String = "users"
@@ -135,7 +152,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                             print("emailCheck")
                         case "keywords":
                             data_center.keyword = snap.value as! [String]
-                            print("키워드 실행되다. 으갸캬캬캬캬")
                             print(data_center.keyword)
                         default:
                             print("Firebase reading error : User")

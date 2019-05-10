@@ -19,7 +19,7 @@ class DataCenter: NSObject, NSCoding {
 //    var ict:Ict
 //    var cse:Cse
     var notiOnOff:Bool
-    var website:[String]
+    var website:[String] // 웹사이트 이름을 모아둔다.
     var selectedWebsite:[Int]
 
     override init(){

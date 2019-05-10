@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class WebsiteCell: UITableViewCell {
     @IBOutlet weak var website_cell_label: UILabel!
@@ -27,6 +28,16 @@ class WebsiteTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+
+    // 웹사이트 선택이 끝나고 돌아갈 때 Firebase에 선택한 웹사이트 업데이트
+    // 근데 만약 웹사이트 선택하고 앱을 종료시켜버리면?
+    // 그러므로 가장 확실한 방법은 아예 선택할 때마다 계속 업데이트하기. 느려지려나..?
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            print("웹사이트 선택 끝났어요오오오")
+        }
     }
 
     // MARK: - Table view data source
@@ -59,7 +70,7 @@ class WebsiteTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath)
 
         if let index = data_center.selectedWebsite.index(of: (indexPath.row)) {
-            data_center.selectedWebsite.remove(at: index)
+            data_center.selectedWebsite.remove(at: index) // search해서 찾을 필요가 없음.
             cell?.setSelected(true, animated: true)
             cell?.setSelected(false, animated: false)
             cell?.accessoryType = UITableViewCell.AccessoryType.none
@@ -69,8 +80,19 @@ class WebsiteTableViewController: UITableViewController {
             cell?.setSelected(false, animated: false)
             cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
         }
-
         data_center.selectedWebsite.sort() // 오름차순으로 정렬해 놓기
+
+        ref = Database.database().reference()
+        let user = Auth.auth().currentUser // 리스너로 하면 다른 부분이랑 연동되는건지 앱 실행시 아래 부분이 수행된다. 그것도 여러 번 반복해서.. 왜 그럴까?
+        if let user = user {
+            let uid = user.uid
+            var updateSelectedWebsite:[String] = []
+            for index in data_center.selectedWebsite {
+                updateSelectedWebsite.append(data_center.website[index])
+            }
+            let childUpdates = ["users/\(uid)/selectedWebsite": updateSelectedWebsite]
+            ref.updateChildValues(childUpdates)
+        }
     }
     
     /*
