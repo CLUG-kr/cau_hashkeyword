@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         // if you have one. Use getTokenWithCompletion:completion: instead.
                         let uid = user.uid
                         let email = user.email
-                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"], "selectedWebsite": ["CAU NOTICE (www.cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]] as [String : Any]
+                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"], "selectedWebsite": ["CAU NOTICE (cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]] as [String : Any]
                         let childUpdates = ["users/\(uid)/": user_data]
                         self.ref.updateChildValues(childUpdates)
                         // rootViewController 지정은 if문에도 남겨주어야 한다
@@ -153,6 +153,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         case "keywords":
                             data_center.keyword = snap.value as! [String]
                             print(data_center.keyword)
+                        case "selectedWebsite":
+                            let selectedWebsite = snap.value as! [String]
+                            data_center.selectedWebsite = []
+                            for websiteName in selectedWebsite {
+                                var i = 0
+                                for website in data_center.website {
+                                    if (websiteName == website) { // swift는 operator overloading임
+                                        data_center.selectedWebsite.append(i)
+                                    }
+                                    i += 1
+                                }
+                            }
                         default:
                             print("Firebase reading error : User")
                         }
@@ -217,7 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         ref = Database.database().reference()
         let base_ref:String = "crawling/webpages"
-        ref.child(base_ref + "/dorm").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child(base_ref + "/dormitory").observeSingleEvent(of: .value, with: { (snapshot) in
             for child in snapshot.children {
                 let snap = child as! DataSnapshot
                 switch snap.key{

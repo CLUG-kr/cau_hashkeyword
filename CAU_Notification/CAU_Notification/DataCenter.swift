@@ -28,7 +28,7 @@ class DataCenter: NSObject, NSCoding {
         self.cau = Cau()
         self.dorm = Dorm()
         self.notiOnOff = true
-        self.website = ["CAU NOTICE (www.cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]
+        self.website = ["CAU NOTICE (cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]
         self.selectedWebsite = [0,1,2,3,4]
     }
 
