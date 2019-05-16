@@ -12,7 +12,7 @@ var data_center:DataCenter = DataCenter()
 
 class DataCenter: NSObject, NSCoding {
     var keyword:[String]
-    var timeline:Timeline
+    var timeline:[Timeline]
     var cau:Cau
 //    var lib:Lib
     var dorm:Dorm
@@ -24,7 +24,7 @@ class DataCenter: NSObject, NSCoding {
 
     override init(){
         self.keyword = ["장학","수강신청","교환학생","봉사","입관"]
-        self.timeline = Timeline()
+        self.timeline = [Timeline]()
         self.cau = Cau()
         self.dorm = Dorm()
         self.notiOnOff = true
@@ -47,10 +47,10 @@ class DataCenter: NSObject, NSCoding {
         } else {
             self.keyword = []
         }
-        if let timeline = aDecoder.decodeObject(forKey:"timeline") as? Timeline{
+        if let timeline = aDecoder.decodeObject(forKey:"timeline") as? [Timeline]{
             self.timeline = timeline
         } else {
-            self.timeline = Timeline()
+            self.timeline = [Timeline]()
         }
         if let cau = aDecoder.decodeObject(forKey:"cau") as? Cau{
             self.cau = cau
@@ -81,37 +81,42 @@ class DataCenter: NSObject, NSCoding {
 }
 
 class Timeline: NSObject, NSCoding {
-    var tl_title:[String]
-    var tl_ref:[String]
-    var tl_date:[String]
+    var title:String
+    var ref:String
+    var date:String
 
-    override init() {
-        self.tl_title = []
-        self.tl_ref = []
-        self.tl_date = []
+//    override init() {
+//        self.title = ""
+//        self.ref = ""
+//        self.date = ""
+//    }
+    init(title: String, ref: String, date:String) {
+        self.title = title
+        self.ref = ref
+        self.date = date
     }
 
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.tl_title, forKey: "tl_title")
-        aCoder.encode(self.tl_ref, forKey: "tl_ref")
-        aCoder.encode(self.tl_date, forKey: "tl_date")
+        aCoder.encode(self.title, forKey: "title")
+        aCoder.encode(self.ref, forKey: "ref")
+        aCoder.encode(self.date, forKey: "date")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        if let tl_title = aDecoder.decodeObject(forKey: "tl_title") as? [String]{
-            self.tl_title = tl_title
+        if let title = aDecoder.decodeObject(forKey: "title") as? String{
+            self.title = title
         } else {
-            self.tl_title = []
+            self.title = ""
         }
-        if let tl_ref = aDecoder.decodeObject(forKey: "tl_ref") as? [String]{
-            self.tl_ref = tl_ref
+        if let ref = aDecoder.decodeObject(forKey: "ref") as? String{
+            self.ref = ref
         } else {
-            self.tl_ref = []
+            self.ref = ""
         }
-        if let tl_date = aDecoder.decodeObject(forKey: "tl_date") as? [String]{
-            self.tl_date = tl_date
+        if let date = aDecoder.decodeObject(forKey: "date") as? String{
+            self.date = date
         } else {
-            self.tl_date = []
+            self.date = ""
         }
     }
 }
