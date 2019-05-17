@@ -84,22 +84,25 @@ class Timeline: NSObject, NSCoding {
     var title:String
     var ref:String
     var date:String
+    var url:String
 
 //    override init() {
 //        self.title = ""
 //        self.ref = ""
 //        self.date = ""
 //    }
-    init(title: String, ref: String, date:String) {
+    init(title: String, ref: String, date:String, url:String) {
         self.title = title
         self.ref = ref
         self.date = date
+        self.url = url
     }
 
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.title, forKey: "title")
         aCoder.encode(self.ref, forKey: "ref")
         aCoder.encode(self.date, forKey: "date")
+        aCoder.encode(self.url, forKey: "url")
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -117,6 +120,11 @@ class Timeline: NSObject, NSCoding {
             self.date = date
         } else {
             self.date = ""
+        }
+        if let url = aDecoder.decodeObject(forKey: "url") as? String{
+            self.url = url
+        } else {
+            self.url = ""
         }
     }
 }

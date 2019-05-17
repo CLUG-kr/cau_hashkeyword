@@ -37,7 +37,7 @@ class ArchiveTableViewController: UITableViewController {
 
         // 임시용
         for title in data_center.dorm.dorm_title {
-            data_center.timeline.append(Timeline(title: title, ref: "레퍼런스", date: "YYYY.MM.DD"))
+            data_center.timeline.append(Timeline(title: title, ref: "레퍼런스", date: "YYYY.MM.DD", url: "http://ict.cau.ac.kr/20150610/sub05/sub05_01_list.php?cmd=view&cpage=1&idx=1320&search_gbn=1&search_keyword="))
         }
     }
 
@@ -145,7 +145,7 @@ class ArchiveTableViewController: UITableViewController {
             return cell
         }
 
-        let data: Timeline
+        let data:Timeline
         if isFiltering() {
             data = filteredData[indexPath.row]
         } else {
@@ -168,7 +168,13 @@ class ArchiveTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showNotice(data_center.dorm.dorm_url[indexPath.row]) // SFSafariViewController 띄우기
+        let url:String
+        if isFiltering() { // 검색한 항목을 선택해 연결한 경우를 구분
+            url = filteredData[indexPath.row].url
+        } else {
+            url = data_center.timeline[indexPath.row].url
+        }
+        showNotice(url) // SFSafariViewController 띄우기
     }
     
     /*
