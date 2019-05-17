@@ -6,22 +6,22 @@
 ---
 
 ## 1. 목적(Purpose)
- * 중앙대학교에는 CAU NOTICE부터 도서관, 기숙사, 학과별 홈페이지까지 다양한 종류의 사이트가 존재한다.
+ * 중앙대학교에는 CAU NOTICE부터 도서관, 기숙사, 학과별 홈페이지까지 여러 사이트가 존재한다.
  * 이렇게 흩어져 있는 공지사항을 하나로 모을 방법이 없을까?
- * 선택한 웹사이트의 공지사항에 사용자가 등록한 **키워드**가 등장하면 애플리케이션에 푸시 알림을 보내주자.
- * 언제까지 입소문에만 의지할 것인가!! 직접 찾아내자. ~~핑프 탈출!~~
+ * 구독한 웹사이트의 공지사항에 사용자가 등록한 **키워드**가 등장하면 애플리케이션에 푸시 알림을 보내주자.
+ * 언제까지 친구들의 입소문에만 의지할 것인가!! ~~모두가 핑프 탈출하는 그날까지..~~
 
 ---
 
 ## 2. 멤버(Members)
- * [18changsung](https://github.com/18changsung)
+ * Changsung Lim : [18changsung](https://github.com/18changsung) ~~고독한 개발자입니다ㅠㅠ~~
  
 ---
 
 ## 3. 사용자 인터페이스(User Interface)
  * Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preference View 
  
- <img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475936-6a147380-72d0-11e9-9b84-4fcd51e44b52.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
+ <img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57941593-57babb00-790a-11e9-8c13-efe37b34deeb.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
  
 ---
 
@@ -29,13 +29,14 @@
  * iOS기반 애플리케이션으로 개발 예정 - Swift4 (추후 안드로이드 개발)
  * 크롤링 - Python 3.6 (Anaconda)
  * ~~cron/scheduler 사용~~ => Amazon Web Service(AWS) EC2 사용
- * ~~Django 사용, SqliteDB 구축, API 서버~~ => Firebase 사용 
-
+ * ~~Django 사용, SqliteDB 구축, API 서버~~ => Firebase (RealTime Database, Authentication, Cloud Messaging(FCM))사용 
+ * -> 애플리케이션 본연의 기능에 집중하기
+ 
 ---
 
 ## 5. 개발일지(Progress)
- * 2018/01/09 
-    - 프로젝트 진행 계획 토의 및 발표
+ * 2018/01/09
+    - 프로젝트 진행 계획 및 발표
     - Adobe XD로 Application Prototype 제작 완료.             
     - 중앙대학교 CAUNOTICE, 학술정보원, 생활관(기숙사), 창의ICT공과대학, 소프트웨어학부 공지사항 크롤링 완료.
  * 2018/01/15 ~ 01/16
@@ -51,6 +52,17 @@
     - iOS 앱 상에서 구현해야하는 Frontend/Backend 사실상 완료.
  * 2019/05/07 ~
     - Firebase를 이용한 Authentication 구현 (사용자 관리).
+    - Firebase에 유저 정보 업데이트 (UID, 등록한 키워드, 이메일, 선택한 웹사이트 등)
+    - 타임라인(이전알림 모음)에서 검색 기능 제공
+    - 인터넷 연결 확인 등 완결성 높이기
+    
 ---
 
-##### 고독한 개발자
+## 6. 목적
+ * 개발 과정을 기록하는 용도로 만들어진 Repo입니다. 
+ 
+ 좋은 아이디어가 있다면 언제든지 sspog.lim@gmail.com으로 연락주시면 감사하겠습니다!
+    
+---
+
+##### 웹 API 키 등은 보안상 제외하여 commit하고 있으므로 주어진 코드만으로 애플리케이션이 실행되지 않는다는 점 양해부탁드립니다.
