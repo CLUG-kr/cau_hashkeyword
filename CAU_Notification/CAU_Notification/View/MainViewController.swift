@@ -9,7 +9,6 @@
 import UIKit
 import UserNotifications
 import Firebase
-import FirebaseAuth
 
 class MainViewController: UIViewController, UITextFieldDelegate {
 
@@ -24,6 +23,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var AniImage: UIImageView!
 
     @IBOutlet weak var keywordLabel: UILabel! // 이제 안씀
+
+    // 인터넷 연결 상태 Alert
+    let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
+    let networkAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
+
+    // 키워드 입력값 Alert
+    let inputAlert = UIAlertController(title:"어이쿠!", message:"키워드가 이미 존재하거나\r\n잘못된 입력입니다.", preferredStyle: .alert)
+    let inputAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
     func show_keyword() {
         // 등록한 키워드 보여주기
@@ -50,16 +57,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                 self.AniLabel2.alpha = 0
                 self.AniImage.alpha = 0
             }, completion: nil
-            // 반복하려면
+            // 반복하려면 (무한히 깜빡거리기?)
             /*{(Completed:Bool) -> Void in
                 self.animateAlarm()
             }*/)
         })
     }
-
-    // Alert
-    let inputAlert = UIAlertController(title:"어이쿠!", message:"키워드가 이미 존재하거나\r\n잘못된 입력입니다.", preferredStyle: .alert)
-    let inputAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
     @objc func dismissFunc(){
         self.inputAlert.dismiss(animated: true, completion: nil)
@@ -67,10 +70,11 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
 
-        print("메인실행ㅇ이이이이잉")
+        // 인터넷 연결 안됨 알림
+        networkAlert.addAction(networkAlertAction)
+
         // Firebase Configure
         ref = Database.database().reference()
-
         // 만약 로그인한 적이 없다면 로그인 페이지로 이동
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user == nil { // if let 구문으로 Storyboard 가져오기?
@@ -92,7 +96,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         self.view.addGestureRecognizer(tap) // 제스처 인식
 
-        print("키워드를 보여주자아아ㅏ아앙")
         // 키워드 목록
         self.show_keyword()
 
@@ -111,13 +114,6 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         inputField.layer.cornerRadius = 3.0
         inputField.layer.borderColor = UIColor.lightGray.cgColor
 
-        // when textField cornerRadius applied..
-        /*
-        let paddingView : UIView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: inputField.frame.height))
-        inputField.leftView = paddingView
-        inputField.leftViewMode = UITextField.ViewMode.always
-        */
-
         // 그림자 설정
         /*self.inputField.layer.shadowRadius = 3.0
         self.inputField.layer.shadowColor = UIColor.black.cgColor
@@ -132,8 +128,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        self.show_keyword() // reload textView
-        print("비유디드어피어에서 알립니다아아아")
+        self.show_keyword() // reload textView // Preference에서 삭제 하고 돌아왔을 때
     }
 
     //화면 클릭시 키보드 자동 내려가기 // viewDidload() let Tap 부분도 필요함
@@ -143,47 +138,53 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
     // 키보드 완료 버튼
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        var flag_keyword:Bool = false
-        if let new_keyword = inputField.text {
-            // 겹치는 키워드가 있는지 확인
-            for keyword in data_center.keyword {
-                if new_keyword == keyword {
-                    flag_keyword = true
-                    break
+        if connection { // 인터넷 연결 상태
+            var flag_keyword:Bool = false
+            if let new_keyword = inputField.text {
+                // 겹치는 키워드가 있는지 확인
+                for keyword in data_center.keyword {
+                    if new_keyword == keyword {
+                        flag_keyword = true
+                        break
+                    }
                 }
-            }
-            // 공백으로만 이루어졌는지 확인 python의 isspace()
-            var space_count:Int = 0
-            for char in new_keyword {
-                if char == " " {
-                    space_count += 1
+                // 공백으로만 이루어졌는지 확인 python의 isspace()
+                var space_count:Int = 0
+                for char in new_keyword {
+                    if char == " " {
+                        space_count += 1
+                    }
                 }
-            }
-            if space_count == new_keyword.count { flag_keyword = true }
+                if space_count == new_keyword.count { flag_keyword = true }
 
-            if flag_keyword {
-                // 이미 있는 키워드입니당 or 공백만 있습니당
-                present(inputAlert, animated: true, completion: nil)
-            } else {
-                inputField.text = "" // 텍스트필드 비우기
-                data_center.keyword.append(new_keyword.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)) // data_center에 키워드 추가하기, trim()
-                // Firebase Database에 사용자 키워드 업데이트
-                // 아래도 리스너로 하는 것이 안전할까?
-                let user = Auth.auth().currentUser
-                if let user = user {
-                    let uid = user.uid
-                    let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
-                    ref.updateChildValues(childUpdates)
-                }
+                if flag_keyword {
+                    // 이미 있는 키워드입니당 or 공백만 있습니당
+                    present(inputAlert, animated: true, completion: nil)
+                    if space_count == new_keyword.count {
+                        inputField.text = "" // 만야 공백으로만 이루어졌다면 텍스트 필드 값 비우기
+                    }
+                } else {
+                    inputField.text = "" // 텍스트필드 비우기
+                    data_center.keyword.append(new_keyword.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)) // data_center에 키워드 추가하기, trim()
+                    // Firebase Database에 사용자 키워드 업데이트
+                    // 아래를 리스너로 하면 어떤 차이점이 있을까
+                    let user = Auth.auth().currentUser
+                    if let user = user {
+                        let uid = user.uid
+                        let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
+                        ref.updateChildValues(childUpdates)
+                    }
 
-                show_keyword()
-                // 알림드리겠습니당.
-                AniLabel1.text = "#" + new_keyword + " 키워드 등록 완료"
-                animateAlarm()
+                    show_keyword()
+                    // 알림드리겠습니당.
+                    AniLabel1.text = "#" + new_keyword + " 키워드 등록 완료"
+                    animateAlarm()
+                }
             }
+            self.view.endEditing(true) // 키보드 숨기기
+        } else { // 인터넷 연결 상태가 아님
+            present(networkAlert, animated: true, completion: nil)
         }
-        print(data_center.keyword)
-        self.view.endEditing(true) // 키보드 숨기기
         return true
     }
 

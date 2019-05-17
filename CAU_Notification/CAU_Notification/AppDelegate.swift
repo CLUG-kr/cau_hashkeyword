@@ -8,9 +8,9 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 import GoogleSignIn
 import UserNotifications
+import Network
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -132,8 +132,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
 
-        print("디드피니쉬런칭위드옵션!!!!!!")
-
         // 구글 로그인후 Firebase에 사용자 정보 추가
         ref = Database.database().reference()
 
@@ -142,8 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
                 let base_ref:String = "users"
-                print("여기다여기다여긱이잉")
-                print(user.uid)
+                print("파이어베이스에서 키워드를 가져왔습니다")
                 self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
                     for child in snapshot.children {
                         let snap = child as! DataSnapshot
@@ -152,7 +149,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                             print("emailCheck")
                         case "keywords":
                             data_center.keyword = snap.value as! [String]
-                            print(data_center.keyword)
                         case "selectedWebsite":
                             let selectedWebsite = snap.value as! [String]
                             data_center.selectedWebsite = []
@@ -219,14 +215,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+
+        // 실시간으로 변경된 값을 Firebase에 업데이트하는 것이 나을까
+        // 여기서 한꺼번에 업데이트 하는 것이 더 나을까
+
+
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
+    func checkNetwork() {
+        let monitor = NWPathMonitor()
+
+        monitor.pathUpdateHandler = { path in // 인터넷 연결 상태 수시로 체크
+            if path.status == .satisfied {
+                print("We're connected!")
+                connection = true
+            } else {
+                print("No connection.")
+                connection = false
+            }
+            // print(path.isExpensive) // Cellular 여부 확인
+        }
+
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
+    }
+
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+        print("액티브")
+        // 인터넷 연결 수시로 확인
+        checkNetwork()
+
         ref = Database.database().reference()
         let base_ref:String = "crawling/webpages"
         ref.child(base_ref + "/dormitory").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -244,7 +269,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 }
             }
         })
-        
+
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

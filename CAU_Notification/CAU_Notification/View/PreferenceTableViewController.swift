@@ -57,6 +57,10 @@ class LogoutCell: UITableViewCell {
 
 class PreferenceTableViewController: UITableViewController {
 
+    // 인터넷 연결 상태 Alert
+    let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
+    let networkAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
+
     // Firebase에 등록되어 있는 계정 로그아웃하기
     @IBAction func logOutButton(_ sender: Any) {
         let logOutSheet = UIAlertController(title: nil, message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
@@ -97,6 +101,10 @@ class PreferenceTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+
+        // 인터넷 연결 안됨 알림
+        networkAlert.addAction(networkAlertAction)
+
         // Firebase Configure
         ref = Database.database().reference()
         
@@ -168,7 +176,7 @@ class PreferenceTableViewController: UITableViewController {
             guard let notiCell = cell as? NotiCell else {
                 return cell
             }
-            notiCell.noti_cell_label.text = "키워드 발견 시 알림"
+            notiCell.noti_cell_label.text = "푸시 알림 받기"
             notiCell.noti_cell_switch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
             return notiCell
         case 1:
@@ -223,22 +231,26 @@ class PreferenceTableViewController: UITableViewController {
 
     // 슬라이드해서 키워드 삭제
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if data_center.keyword.count == 1 { // 키워드 하나 남았을 때 삭제하면
-            data_center.keyword.remove(at: indexPath.row)
-            self.tableView.reloadData() // cellForRowAt indexPath 다시 실행하기 위해서..
-        } else {
-            if editingStyle == UITableViewCell.EditingStyle.delete {
+        if connection { // 인터넷이 연결된 상태
+            if data_center.keyword.count == 1 { // 키워드 하나 남았을 때 삭제하면
                 data_center.keyword.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                self.tableView.reloadData() // cellForRowAt indexPath 다시 실행하기 위해서..
+            } else {
+                if editingStyle == UITableViewCell.EditingStyle.delete {
+                    data_center.keyword.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                }
             }
-        }
-        // Firebase에도 반영하기
-        let user = Auth.auth().currentUser
-        if let user = user {
-            print("키워드를 삭제했다고오ㅗ오?")
-            let uid = user.uid
-            let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
-            ref.updateChildValues(childUpdates)
+            // Firebase에도 반영하기
+            let user = Auth.auth().currentUser
+            if let user = user {
+                print("키워드를 삭제했다고오ㅗ오?")
+                let uid = user.uid
+                let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
+                ref.updateChildValues(childUpdates)
+            }
+        } else { // 인터넷이 연결되지 않은 상태
+            present(networkAlert, animated: true, completion: nil)
         }
     }
 

@@ -9,6 +9,7 @@
 import Foundation
 
 var data_center:DataCenter = DataCenter()
+var connection:Bool = false
 
 class DataCenter: NSObject, NSCoding {
     var keyword:[String]
