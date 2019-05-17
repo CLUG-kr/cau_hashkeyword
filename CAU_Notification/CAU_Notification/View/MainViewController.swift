@@ -96,9 +96,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         // 키워드 목록
         self.show_keyword()
 
+        // 텍스트 필드 왼쪽 여백 추가
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.inputField.frame.height))
+        inputField.leftView = paddingView
+        inputField.leftViewMode = UITextField.ViewMode.always
+
         // 텍스트 필드
-        inputField.placeholder = "키워드 추가하기" // 텍스트필드 값
-        inputField.textAlignment = .center // 텍스트 위치
+        inputField.placeholder = "↪︎" // 텍스트필드 placeholder 값 // ↩︎ > ⤷ › ✎ ❝❞ 키워드 추가하기
+        // inputField.textAlignment = .center // 텍스트 위치
         inputField.borderStyle = UITextField.BorderStyle.none
         inputField.backgroundColor = UIColor.groupTableViewBackground
         inputField.frame.size.width = 283.0

@@ -21,7 +21,6 @@
 		67CB296B221D9004007FE145 /* PreferenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */; };
 		67CB2971221D9582007FE145 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2970221D9582007FE145 /* TabBarController.swift */; };
 		67CB2973221D9FEB007FE145 /* WebsiteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB2972221D9FEB007FE145 /* WebsiteTableViewController.swift */; };
-		B25F3882CB6F048D4F24F620 /* Pods_CAU_Notification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC34AE07728983E03FC44186 /* Pods_CAU_Notification.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,11 +40,8 @@
 		67CB296A221D9004007FE145 /* PreferenceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceTableViewController.swift; sourceTree = "<group>"; };
 		67CB2970221D9582007FE145 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		67CB2972221D9FEB007FE145 /* WebsiteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteTableViewController.swift; sourceTree = "<group>"; };
-		76D553F73A371F6049D881F1 /* Pods-CAU_hashkeyword_IOS_application.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CAU_hashkeyword_IOS_application.release.xcconfig"; path = "Pods/Target Support Files/Pods-CAU_hashkeyword_IOS_application/Pods-CAU_hashkeyword_IOS_application.release.xcconfig"; sourceTree = "<group>"; };
 		9C1C5A9ED036419A30D937A9 /* Pods-CAU_Notification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CAU_Notification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CAU_Notification/Pods-CAU_Notification.debug.xcconfig"; sourceTree = "<group>"; };
 		9EB286F2FEF1838C8C464E57 /* Pods-CAU_Notification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CAU_Notification.release.xcconfig"; path = "Pods/Target Support Files/Pods-CAU_Notification/Pods-CAU_Notification.release.xcconfig"; sourceTree = "<group>"; };
-		B5201DA5EE16F6E80354FE6F /* Pods-CAU_hashkeyword_IOS_application.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CAU_hashkeyword_IOS_application.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CAU_hashkeyword_IOS_application/Pods-CAU_hashkeyword_IOS_application.debug.xcconfig"; sourceTree = "<group>"; };
-		EC34AE07728983E03FC44186 /* Pods_CAU_Notification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CAU_Notification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +50,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				469B1F7ADEEF351DD35F05EE /* Pods_CAU_Notification.framework in Frameworks */,
-				B25F3882CB6F048D4F24F620 /* Pods_CAU_Notification.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				2A1AC18D9CCEC4C50A49CBE8 /* Pods_CAU_Notification.framework */,
-				EC34AE07728983E03FC44186 /* Pods_CAU_Notification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,8 +122,6 @@
 		8BE096D2B629EAB230B4E76E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B5201DA5EE16F6E80354FE6F /* Pods-CAU_hashkeyword_IOS_application.debug.xcconfig */,
-				76D553F73A371F6049D881F1 /* Pods-CAU_hashkeyword_IOS_application.release.xcconfig */,
 				9C1C5A9ED036419A30D937A9 /* Pods-CAU_Notification.debug.xcconfig */,
 				9EB286F2FEF1838C8C464E57 /* Pods-CAU_Notification.release.xcconfig */,
 			);
