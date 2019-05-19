@@ -61,6 +61,16 @@ class PreferenceTableViewController: UITableViewController {
     let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
     let networkAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
+    // 푸시 알림 받기 설정 스위치
+    @IBAction func noti_cell_switchChanged(_ sender: UISwitch) {
+        if sender.isOn { // 스위치 켜짐
+            data_center.notiOnOff = true
+        }
+        else { // 스위치 꺼짐
+            data_center.notiOnOff = false
+        }
+    }
+
     // Firebase에 등록되어 있는 계정 로그아웃하기
     @IBAction func logOutButton(_ sender: Any) {
         let logOutSheet = UIAlertController(title: nil, message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
