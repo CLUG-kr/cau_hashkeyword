@@ -19,10 +19,13 @@
 ---
 
 ## 3. 사용자 인터페이스(User Interface)
- * Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preference View 
- 
- <img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57941593-57babb00-790a-11e9-8c13-efe37b34deeb.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
- 
+Push Notification &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Preference View
+
+<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/58111254-1ab53800-7c2c-11e9-94cf-6659eba1f556.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57941593-57babb00-790a-11e9-8c13-efe37b34deeb.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
+
 ---
 
 ## 4. 개발계획(Dev Plan)
@@ -50,11 +53,13 @@
  * 2019/02/20 ~ 03/01
     - 앱 UI 대부분 완성, 키워드 등록 및 DB와 비교 알고리즘 작성.
     - iOS 앱 상에서 구현해야하는 Frontend/Backend 사실상 완료.
- * 2019/05/07 ~
+ * 2019/05/07 ~ 05/21
     - Firebase를 이용한 Authentication 구현 (사용자 관리).
     - Firebase에 유저 정보 업데이트 (UID, 등록한 키워드, 이메일, 선택한 웹사이트 등)
     - 타임라인(이전알림 모음)에서 검색 기능 제공
     - 인터넷 연결 확인 등 완결성 높이기
+ * 2019/05/22 ~
+    - APNS와 Firebase Cloud Messaging을 이용한 Push Notification 구현 (테스트 메시지 성공)
     
 ---
 
