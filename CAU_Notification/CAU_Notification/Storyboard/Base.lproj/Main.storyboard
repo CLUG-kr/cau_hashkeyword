@@ -211,9 +211,6 @@
                                             <rect key="frame" x="310" y="7" width="49" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="onTintColor" red="0.1803921568627451" green="0.45490196078431372" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="noti_cell_switchChanged:" destination="ykR-fE-NMD" eventType="valueChanged" id="BCu-Gh-204"/>
-                                            </connections>
                                         </switch>
                                     </subviews>
                                 </tableViewCellContentView>

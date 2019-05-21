@@ -8,20 +8,21 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 import GoogleSignIn
 
 // Firebase Database
 var ref: DatabaseReference!
 
-class NotiCell: UITableViewCell {
+// 사용하지 않는 nib 코드를 제거하지 않으면 속도 상 문제가 있을까?
 
+class NotiCell: UITableViewCell {
     @IBOutlet weak var noti_cell_label: UILabel!
     @IBOutlet weak var noti_cell_switch: UISwitch!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        // 푸시 알림 스위치 초기화 from Firebase
+        noti_cell_switch.isOn = data_center.notiOnOff
     }
 }
 
@@ -35,7 +36,6 @@ class KeywordCell: UITableViewCell {
 }
 
 class SelectedWebsiteCell: UITableViewCell {
-
     @IBOutlet weak var selectedWebsite_cell_label: UILabel!
     @IBOutlet weak var addWebsite_cell_button: UIButton!
     
@@ -46,7 +46,6 @@ class SelectedWebsiteCell: UITableViewCell {
 }
 
 class LogoutCell: UITableViewCell {
-
     @IBOutlet weak var logout_cell_button_outlet: UIButton!
 
     override func awakeFromNib() {
@@ -56,72 +55,66 @@ class LogoutCell: UITableViewCell {
 }
 
 class PreferenceTableViewController: UITableViewController {
-
     // 인터넷 연결 상태 Alert
     let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
     let networkAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
-    // 푸시 알림 받기 설정 스위치
-    @IBAction func noti_cell_switchChanged(_ sender: UISwitch) {
-        if sender.isOn { // 스위치 켜짐
-            data_center.notiOnOff = true
-        }
-        else { // 스위치 꺼짐
-            data_center.notiOnOff = false
-        }
-    }
-
     // Firebase에 등록되어 있는 계정 로그아웃하기
     @IBAction func logOutButton(_ sender: Any) {
-        let logOutSheet = UIAlertController(title: nil, message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
+        if connection {
+            let logOutSheet = UIAlertController(title: nil, message: "정말로 로그아웃 하시겠습니까?", preferredStyle: .actionSheet)
 
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let logOut = UIAlertAction(title: "로그아웃", style: .destructive) { action in
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            let logOut = UIAlertAction(title: "로그아웃", style: .destructive) { action in
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
 
-                // 아래 코드로 로그아웃시 새로운 구글 계정으로 로그인할 수 있음.
-                GIDSignIn.sharedInstance().signOut()
-                // GIDSignIn.sharedInstance().disconnect() // 탈퇴용?
-                // (https://stackoverflow.com/questions/37936560/how-to-sign-out-of-google-after-being-authenticated)
+                    // 아래 코드로 로그아웃시 새로운 구글 계정으로 로그인할 수 있음.
+                    GIDSignIn.sharedInstance().signOut()
+                    // GIDSignIn.sharedInstance().disconnect() // 탈퇴용?
+                    // (https://stackoverflow.com/questions/37936560/how-to-sign-out-of-google-after-being-authenticated)
 
-                let user = Auth.auth().currentUser
+                    // let user = Auth.auth().currentUser
 
-                // 아래 코드는 데이터베이스에 있는 유저 데이터를 삭제하는 듯. 즉, 탈퇴시에만 하면 될듯.
-                /*
-                user?.delete { error in
-                    if let error = error {
-                        print("유저 삭제 에러")
-                        // An error happened.
-                    } else {
-                        print("유저 삭제 성공")
-                        // Account deleted.
-                    }
+                    // 아래 코드는 데이터베이스에 있는 유저 데이터를 삭제하는 듯. 즉, 탈퇴시에만 하면 될듯.
+                    /*
+                     user?.delete { error in
+                        if let error = error {
+                            print("유저 삭제 에러")
+                            // An error happened.
+                        } else {
+                            print("유저 삭제 성공")
+                            // Account deleted.
+                        }
+                     }
+                     */
+                } catch let signOutError as NSError {
+                    print ("Error signing out: %@", signOutError)
                 }
-                */
-            } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
             }
+            logOutSheet.addAction(cancel)
+            logOutSheet.addAction(logOut)
+            present(logOutSheet, animated: true, completion: nil)
+        } else {
+            present(networkAlert, animated: true, completion: nil)
         }
-
-        logOutSheet.addAction(cancel)
-        logOutSheet.addAction(logOut)
-        present(logOutSheet, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
 
-        // 인터넷 연결 안됨 알림
+        // 네트워크 연결 실패 알림
         networkAlert.addAction(networkAlertAction)
 
         // Firebase Configure
         ref = Database.database().reference()
         
         super.viewDidLoad()
+
         // tableview 편집 버튼
         self.navigationItem.rightBarButtonItem = self.editButtonItem
 
+        // large title 사용 (only iOS 11)
         navigationController?.navigationBar.barStyle = .black
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -161,7 +154,7 @@ class PreferenceTableViewController: UITableViewController {
                 return 1
             }
         case 2:
-            return data_center.selectedWebsite.count + 1// Add Button 까지 포함
+            return data_center.selectedWebsite.count + 1 // Add Button 까지 포함
         case 3:
             return 1
         default:
@@ -170,12 +163,28 @@ class PreferenceTableViewController: UITableViewController {
         }
     }
 
-    // 스위치 OnOff 상태 확인
-    @objc func switchChanged(_ sender : UISwitch!){
-        if sender.isOn {
-            data_center.notiOnOff = true
-        } else {
-            data_center.notiOnOff = false
+    var noti_switch: UISwitch!
+
+    // Push_notification 수신 설정
+    @objc func noti_switchChanged(_ sender : UISwitch!){
+        if connection { // 인터넷이 연결된 상태
+            if sender.isOn { // 스위치 켜짐
+                data_center.notiOnOff = true
+            }
+            else { // 스위치 꺼짐
+                data_center.notiOnOff = false
+            }
+
+            // Firebase에도 반영하기
+            let user = Auth.auth().currentUser
+            if let user = user {
+                let uid = user.uid
+                let childUpdates = ["users/\(uid)/push_notification": data_center.notiOnOff]
+                ref.updateChildValues(childUpdates)
+            }
+        } else { // 인터넷이 연결되지 않은 상태
+            self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
+            present(networkAlert, animated: true, completion: nil)
         }
     }
 
@@ -187,7 +196,9 @@ class PreferenceTableViewController: UITableViewController {
                 return cell
             }
             notiCell.noti_cell_label.text = "푸시 알림 받기"
-            notiCell.noti_cell_switch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
+            notiCell.noti_cell_switch.isOn = data_center.notiOnOff
+            notiCell.noti_cell_switch.addTarget(self, action: #selector(self.noti_switchChanged(_:)), for: .valueChanged)
+            print("Section 1 리로드!!")
             return notiCell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "keywordCell", for: indexPath)

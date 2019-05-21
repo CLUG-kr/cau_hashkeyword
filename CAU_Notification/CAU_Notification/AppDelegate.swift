@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     // Firebase Database
     var ref: DatabaseReference!
 
-    // Alert
+    // Network Alert
     let inputAlert = UIAlertController(title:"저런!", message:"인터넷이 연결되었는지 확인해주세요.", preferredStyle: .alert)
     let inputAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
 
@@ -51,15 +51,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
         // Firebase Authentication에 인증하는 역할을 한다.
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+
             if let error = error {
                 print("Faild to create a Firebase User with Google account: ", error)
                 // 사용자에게 메시지?
             }
-            
+
+            print("새로운유저니>>>?")
             let isNewUser = authResult?.additionalUserInfo?.isNewUser;
-            print("새로운 유저인가요요요요요?")
             print(isNewUser!)
-            Auth.auth().addStateDidChangeListener { (auth, user) in
+            // Auth.auth().addStateDidChangeListener { (auth, user) in
+            // 리스너로 하면 새로운 유저처럼 또 초기화되어 버린다.. 왜지?
+            let user = Auth.auth().currentUser
                 if let user = user {
                     if(isNewUser!) { // 만약 처음 로그인한 유저라면 Firebase에 정보 추가
                         // The user's ID, unique to the Firebase project.
@@ -67,7 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         // if you have one. Use getTokenWithCompletion:completion: instead.
                         let uid = user.uid
                         let email = user.email
-                        let user_data = ["email": email!, "keywords": ["장학","수강신청","교환학생","봉사","입관"], "selectedWebsite": ["CAU NOTICE (cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]] as [String : Any]
+                        // 기본 설정 적용 (키워드 및 선택한 웹사이트)
+                        let user_data = ["email": email!, "push_notification": true, "keywords": ["장학","수강신청","교환학생","봉사","입관"], "selectedWebsite": ["CAU NOTICE (cau.ac.kr)", "서울캠퍼스 학술정보원 (library.cau.ac.kr)", "서울캠퍼스 생활관 (dormitory.cau.ac.kr)", "창의 ICT 공과대학 (ict.cau.ac.kr)", "소프트웨어학부 (cse.cau.ac.kr)"]] as [String : Any]
                         let childUpdates = ["users/\(uid)/": user_data]
                         self.ref.updateChildValues(childUpdates)
                         // rootViewController 지정은 if문에도 남겨주어야 한다
@@ -83,12 +87,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                 switch snap.key{
                                 case "email":
                                     print("emailCheck")
+                                case "push_notification":
+                                    data_center.notiOnOff = snap.value as! Bool
+                                    print(data_center.notiOnOff)
                                 case "keywords":
                                     data_center.keyword = snap.value as! [String]
                                     print(data_center.keyword)
                                 case "selectedWebsite":
                                     let selectedWebsite = snap.value as! [String]
                                     print(selectedWebsite)
+                                    // String형으로 이루어진 웹사이트의 모음을 WebsiteTVC에 대한 인덱스로 변환
                                     data_center.selectedWebsite = []
                                     // 이중 for문 okay..?
                                     for websiteName in selectedWebsite {
@@ -114,12 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         })
                     }
                 }
-            }
-            guard let uid = user.userID else { return }
-            print("Successfully logged into Firebase with Google", uid)
-
+            // }
+            // guard let uid = user.userID else { return }
+            // print("Successfully logged into Firebase with Google", uid)
         }
-
     }
 
     @objc func dismissFunc(){
@@ -136,42 +142,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         ref = Database.database().reference()
 
         // terminate 상태에서 Main으로 돌아올 때 실행되는 부분으로 Firebase에서 키워드 정보를 가져옴.
-        // 후에 아카이브로 해결할 예정.
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                let base_ref:String = "users"
-                print("파이어베이스에서 키워드를 가져왔습니다")
-                self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
-                    for child in snapshot.children {
-                        let snap = child as! DataSnapshot
-                        switch snap.key{
-                        case "email":
-                            print("emailCheck")
-                        case "keywords":
-                            data_center.keyword = snap.value as! [String]
-                        case "selectedWebsite":
-                            let selectedWebsite = snap.value as! [String]
-                            data_center.selectedWebsite = []
-                            for websiteName in selectedWebsite {
-                                var i = 0
-                                for website in data_center.website {
-                                    if (websiteName == website) { // swift는 operator overloading임
-                                        data_center.selectedWebsite.append(i)
-                                    }
-                                    i += 1
+        // 후에 아카이브로 해결할까..?
+
+        let user = Auth.auth().currentUser
+        if let user = user {
+            let base_ref:String = "users"
+            self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    switch snap.key{
+                    case "email":
+                        print("emailCheck")
+                    case "push_notification":
+                        data_center.notiOnOff = snap.value as! Bool
+                    case "keywords":
+                        data_center.keyword = snap.value as! [String]
+                    case "selectedWebsite":
+                        let selectedWebsite = snap.value as! [String]
+                        data_center.selectedWebsite = []
+                        for websiteName in selectedWebsite {
+                            var i = 0
+                            for website in data_center.website {
+                                if (websiteName == website) { // swift는 operator overloading임
+                                    data_center.selectedWebsite.append(i)
                                 }
+                                i += 1
                             }
-                        default:
-                            print("Firebase reading error : User")
                         }
+                    default:
+                        print("Firebase reading error : User")
                     }
-                    // 이렇게 observe 안에 넣어주어야지 키워드를 불러오고 나서 Main을 보여준다.
-                    // 속도는 아주 살짝 느려지더라도 감수하기
-                    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
-                    self.window?.rootViewController = myTabBar
-                })
-            }
+                }
+                // 이렇게 observe 안에 넣어주어야지 키워드를 불러오고 나서 Main을 보여준다.
+                // 속도는 아주 살짝 느려지더라도 감수하기
+                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
+                self.window?.rootViewController = myTabBar
+            })
         }
 
         /*

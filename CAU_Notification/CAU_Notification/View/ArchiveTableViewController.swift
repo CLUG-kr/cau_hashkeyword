@@ -47,7 +47,7 @@ class ArchiveTableViewController: UITableViewController {
     func setupNavBar() {
         // title 과 status bar 흰색으로 설정
         navigationController?.navigationBar.barStyle = .black
-        // large title 사용 (only iOS 11?)
+        // large title 사용 (only iOS 11)
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
@@ -68,6 +68,7 @@ class ArchiveTableViewController: UITableViewController {
         return .lightContent
     }
 
+    // 검색 결과에 표시할 데이터를 담는 공간
     var filteredData = [Timeline]()
 
     // SearchController
@@ -86,7 +87,6 @@ class ArchiveTableViewController: UITableViewController {
                 return false
             }
         })
-
         tableView.reloadData()
     }
 
@@ -119,7 +119,6 @@ class ArchiveTableViewController: UITableViewController {
         if isFiltering() {
             return filteredData.count
         }
-
         return data_center.timeline.count
     }
 
@@ -133,7 +132,6 @@ class ArchiveTableViewController: UITableViewController {
         if let url = URL(string: url) {
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
-
             let vc = SFSafariViewController(url: url, configuration: config)
             present(vc, animated: true)
         }
@@ -224,6 +222,7 @@ class ArchiveTableViewController: UITableViewController {
 
 }
 
+// SearchController를 위한 Update 확장 기능
 extension ArchiveTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)

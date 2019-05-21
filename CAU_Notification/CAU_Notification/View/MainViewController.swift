@@ -18,11 +18,12 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var inputField: UITextField!
     @IBOutlet weak var keywordTextView: UITextView!
 
+    // 키워드 등록시 등장하는 애니메이션을 위한 Outlet
     @IBOutlet weak var AniLabel1: UILabel!
     @IBOutlet weak var AniLabel2: UILabel!
     @IBOutlet weak var AniImage: UIImageView!
 
-    @IBOutlet weak var keywordLabel: UILabel! // 이제 안씀
+    @IBOutlet weak var keywordLabel: UILabel! // 이제 안씀 -> keywordTextView로 대체
 
     // 인터넷 연결 상태 Alert
     let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
@@ -35,6 +36,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
     func show_keyword() {
         // 등록한 키워드 보여주기
         var keywordString:String = ""
+        // # 붙여서 표현
         for i in 0..<data_center.keyword.count{
             keywordString += "#"
             keywordString += data_center.keyword[i]
@@ -43,6 +45,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         keywordTextView?.text = keywordString
     }
 
+    // 애니메이션 효과 지정
     func animateAlarm() {
         // fade in 속도
         UIView.animate(withDuration: 1.0, animations: {
@@ -64,13 +67,14 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         })
     }
 
+    // 홈버튼 누르고 다시 들어오면 입력 오류 메시지 Alert 사라지도록
     @objc func dismissFunc(){
         self.inputAlert.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
 
-        // 인터넷 연결 안됨 알림
+        // 네트워크 연결 실패 알림
         networkAlert.addAction(networkAlertAction)
 
         // Firebase Configure
@@ -93,6 +97,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         // 키보드
         inputField.delegate = self // 키보드 내리는데 필요
         inputField.returnKeyType = .done // keyboard 엔터 -> 완료
+
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         self.view.addGestureRecognizer(tap) // 제스처 인식
 
@@ -105,8 +110,8 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         inputField.leftViewMode = UITextField.ViewMode.always
 
         // 텍스트 필드
-        inputField.placeholder = "↪︎" // 텍스트필드 placeholder 값 // ↩︎ > ⤷ › ✎ ❝❞ 키워드 추가하기
-        // inputField.textAlignment = .center // 텍스트 위치
+        inputField.placeholder = "↪︎" // 텍스트필드 placeholder 값, ↩︎ > ⤷ › ✎ ❝❞ 키워드 추가하기
+        // inputField.textAlignment = .center // 텍스트 위치 -> paddingView 사용으로 대체
         inputField.borderStyle = UITextField.BorderStyle.none
         inputField.backgroundColor = UIColor.groupTableViewBackground
         inputField.frame.size.width = 283.0
@@ -114,14 +119,15 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         inputField.layer.cornerRadius = 3.0
         inputField.layer.borderColor = UIColor.lightGray.cgColor
 
-        // 그림자 설정
+        // 텍스트 필드 그림자 설정
         /*self.inputField.layer.shadowRadius = 3.0
         self.inputField.layer.shadowColor = UIColor.black.cgColor
         self.inputField.layer.shadowOffset = CGSize(width: 0.3, height: 0.3)
         self.inputField.layer.shadowOpacity = 1.0*/
 
-        // 알림
+        // 키워드 입력 오류 알림
         inputAlert.addAction(inputAlertAction)
+
         // 홈 버튼을 누르고 돌아오면 오류메시지 안보이기.
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(dismissFunc), name: UIApplication.willResignActiveNotification, object: nil)
@@ -136,36 +142,41 @@ class MainViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
 
+    func checkKeyword(new_keyword: String) -> (isExist: Bool, isSpace: Bool) {
+        var isExist:Bool = false, isSpace:Bool = false
+        // 겹치는 키워드가 있는지 확인
+        for keyword in data_center.keyword {
+            if new_keyword == keyword {
+                isExist = true
+                break
+            }
+        }
+        // 공백으로만 이루어졌는지 확인 python의 isspace()
+        var space_count:Int = 0
+        for char in new_keyword {
+            if char == " " {
+                space_count += 1
+            }
+        }
+        if space_count == new_keyword.count { isSpace = true }
+        return (isExist, isSpace)
+    }
+
     // 키보드 완료 버튼
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if connection { // 인터넷 연결 상태
-            var flag_keyword:Bool = false
             if let new_keyword = inputField.text {
-                // 겹치는 키워드가 있는지 확인
-                for keyword in data_center.keyword {
-                    if new_keyword == keyword {
-                        flag_keyword = true
-                        break
-                    }
-                }
-                // 공백으로만 이루어졌는지 확인 python의 isspace()
-                var space_count:Int = 0
-                for char in new_keyword {
-                    if char == " " {
-                        space_count += 1
-                    }
-                }
-                if space_count == new_keyword.count { flag_keyword = true }
-
-                if flag_keyword {
-                    // 이미 있는 키워드입니당 or 공백만 있습니당
+                if checkKeyword(new_keyword: new_keyword).isExist { // 이미 있는 키워드
                     present(inputAlert, animated: true, completion: nil)
-                    if space_count == new_keyword.count {
-                        inputField.text = "" // 만야 공백으로만 이루어졌다면 텍스트 필드 값 비우기
-                    }
-                } else {
+                }
+                else if checkKeyword(new_keyword: new_keyword).isSpace { // 공백으로만 이뤄진 키워드
+                    present(inputAlert, animated: true, completion: nil)
+                    inputField.text = "" // 만약 공백으로만 이루어졌다면 텍스트 필드 값 비우기
+                }
+                else { // 정상적인 입력인 경우
                     inputField.text = "" // 텍스트필드 비우기
                     data_center.keyword.append(new_keyword.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)) // data_center에 키워드 추가하기, trim()
+
                     // Firebase Database에 사용자 키워드 업데이트
                     // 아래를 리스너로 하면 어떤 차이점이 있을까
                     let user = Auth.auth().currentUser
@@ -174,7 +185,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
                         let childUpdates = ["users/\(uid)/keywords": data_center.keyword]
                         ref.updateChildValues(childUpdates)
                     }
-
+                    // keywordTextView Reload
                     show_keyword()
                     // 알림드리겠습니당.
                     AniLabel1.text = "#" + new_keyword + " 키워드 등록 완료"
