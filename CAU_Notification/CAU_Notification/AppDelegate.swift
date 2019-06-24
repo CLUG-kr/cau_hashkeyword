@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import GoogleSignIn
-import UserNotifications
 import Network
 
 @UIApplicationMain
@@ -50,20 +49,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                                        accessToken: authentication.accessToken)
 
         // Firebase Authentication에 인증하는 역할을 한다.
-        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+        // 'signInAndRetrieveData(with:completion:)' is deprecated: Please use signInWithCredential:completion: for Objective-C or signIn(with:completion:) for Swift instead.
+        Auth.auth().signIn(with: credential) { (authResult, error) in
 
             if let error = error {
                 print("Faild to create a Firebase User with Google account: ", error)
                 // 사용자에게 메시지?
             }
 
-            print("새로운유저니>>>?")
             let isNewUser = authResult?.additionalUserInfo?.isNewUser;
-            print(isNewUser!)
             // Auth.auth().addStateDidChangeListener { (auth, user) in
             // 리스너로 하면 새로운 유저처럼 또 초기화되어 버린다.. 왜지?
             let user = Auth.auth().currentUser
                 if let user = user {
+                    // fcmToken 등록
+                    let pushManager = PushNotificationManager(userID: user.uid)
+                    pushManager.registerForPushNotifications()
+
                     if(isNewUser!) { // 만약 처음 로그인한 유저라면 Firebase에 정보 추가
                         // The user's ID, unique to the Firebase project.
                         // Do NOT use this value to authenticate with your backend server,
@@ -138,13 +140,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
 
+        let user = Auth.auth().currentUser
+        if let user = user {
+            // Push Notification을 위한 작업
+            // 어디에 배치해야할까요
+
+        }
+
         // 구글 로그인후 Firebase에 사용자 정보 추가
         ref = Database.database().reference()
 
         // terminate 상태에서 Main으로 돌아올 때 실행되는 부분으로 Firebase에서 키워드 정보를 가져옴.
         // 후에 아카이브로 해결할까..?
-
-        let user = Auth.auth().currentUser
         if let user = user {
             let base_ref:String = "users"
             self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -203,9 +210,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //        self.window = UIWindow(frame: UIScreen.main.bounds)
 //        self.window?.rootViewController = initialViewController
 //        self.window?.makeKeyAndVisible()
-
-        // 알림허용 묻기
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {didAllow,Error in })
 
         // 구글 로그인
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID

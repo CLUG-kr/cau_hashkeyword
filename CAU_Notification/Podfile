@@ -9,6 +9,7 @@ target 'CAU_Notification' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
+  pod 'Firebase/Messaging'
 
   # Pods for CAU_Notification
 
