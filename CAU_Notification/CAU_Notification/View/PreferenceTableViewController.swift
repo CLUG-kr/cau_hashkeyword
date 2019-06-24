@@ -55,6 +55,11 @@ class LogoutCell: UITableViewCell {
 }
 
 class PreferenceTableViewController: UITableViewController {
+
+    // Push Notification 허용 상태 Alert
+    let allowPushAlert = UIAlertController(title: "푸시 알림을 허용해주세요!", message: "설정>알림>CAU알림 에서\r\n알림허용을 해주세요.", preferredStyle: .alert)
+    let allowPushAlertAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+
     // 인터넷 연결 상태 Alert
     let networkAlert = UIAlertController(title:"웁스!", message:"사용자 정보를 불러올 수 없습니다.\r\n인터넷 연결을 확인해주세요.", preferredStyle: .alert)
     let networkAlertAction = UIAlertAction(title:"확인", style: .default, handler: nil)
@@ -103,6 +108,9 @@ class PreferenceTableViewController: UITableViewController {
 
     override func viewDidLoad() {
 
+        // 푸시 알림 허용 필요 알림
+        allowPushAlert.addAction(allowPushAlertAction)
+
         // 네트워크 연결 실패 알림
         networkAlert.addAction(networkAlertAction)
 
@@ -122,6 +130,12 @@ class PreferenceTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            if(settings.authorizationStatus != .authorized) {
+                data_center.notiOnOff = false
+            }
+        }
         self.tableView.reloadData()
     }
     
@@ -167,24 +181,40 @@ class PreferenceTableViewController: UITableViewController {
 
     // Push_notification 수신 설정
     @objc func noti_switchChanged(_ sender : UISwitch!){
-        if connection { // 인터넷이 연결된 상태
-            if sender.isOn { // 스위치 켜짐
-                data_center.notiOnOff = true
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            if(settings.authorizationStatus == .authorized) {
+                print("Push authorized")
+                // 크게 감싸도 괜찮을까?
+                DispatchQueue.main.async {
+                    if connection { // 인터넷이 연결된 상태
+                        if sender.isOn { // 스위치 켜짐
+                            data_center.notiOnOff = true
+                        }
+                        else { // 스위치 꺼짐
+                            data_center.notiOnOff = false
+                        }
+                        // Firebase에도 반영하기
+                        let user = Auth.auth().currentUser
+                        if let user = user {
+                            let uid = user.uid
+                            let childUpdates = ["users/\(uid)/push_notification": data_center.notiOnOff]
+                            ref.updateChildValues(childUpdates)
+                        }
+                    } else { // 인터넷이 연결되지 않은 상태
+                        self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
+                        self.present(self.networkAlert, animated: true, completion: nil)
+                    }
+                }
             }
-            else { // 스위치 꺼짐
-                data_center.notiOnOff = false
+            else {
+                print("Push not authorized")
+                // 푸시 허용 필요 알림
+                DispatchQueue.main.async {
+                    self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
+                    self.present(self.allowPushAlert, animated: true, completion: nil)
+                }
             }
-
-            // Firebase에도 반영하기
-            let user = Auth.auth().currentUser
-            if let user = user {
-                let uid = user.uid
-                let childUpdates = ["users/\(uid)/push_notification": data_center.notiOnOff]
-                ref.updateChildValues(childUpdates)
-            }
-        } else { // 인터넷이 연결되지 않은 상태
-            self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
-            present(networkAlert, animated: true, completion: nil)
         }
     }
 
@@ -301,3 +331,45 @@ class PreferenceTableViewController: UITableViewController {
     }
     */
 }
+
+
+//var allowPush:Bool = false
+//@objc func noti_switchChanged(_ sender : UISwitch!){
+//    let center = UNUserNotificationCenter.current()
+//    center.getNotificationSettings { (settings) in
+//        if(settings.authorizationStatus == .authorized) {
+//            print("Push authorized")
+//            self.allowPush = true
+//        }
+//        else {
+//            print("Push not authorized")
+//            // 푸시 허용 필요 알림
+//            self.allowPush = false
+//            DispatchQueue.main.async {
+//                self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
+//            }
+//            self.present(self.allowPushAlert, animated: true, completion: nil)
+//        }
+//    }
+//    if allowPush {
+//        if connection { // 인터넷이 연결된 상태
+//            if sender.isOn { // 스위치 켜짐
+//                data_center.notiOnOff = true
+//            }
+//            else { // 스위치 꺼짐
+//                data_center.notiOnOff = false
+//            }
+//            // Firebase에도 반영하기
+//            let user = Auth.auth().currentUser
+//            if let user = user {
+//                let uid = user.uid
+//                let childUpdates = ["users/\(uid)/push_notification": data_center.notiOnOff]
+//                ref.updateChildValues(childUpdates)
+//            }
+//        } else { // 인터넷이 연결되지 않은 상태
+//            self.tableView.reloadSections(IndexSet(integersIn: 0...0), with: UITableView.RowAnimation.none)
+//            self.present(self.networkAlert, animated: true, completion: nil)
+//        }
+//    }
+//    print(data_center.notiOnOff)
+//}

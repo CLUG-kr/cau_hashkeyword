@@ -25,7 +25,12 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
-                completionHandler: {_, _ in })
+                completionHandler: {didAllow, Error in
+                // 유저의 Notification 허용 여부에 따라 관련 값들을 수정
+                    data_center.notiOnOff = didAllow
+                    let ref = Database.database().reference()
+                    ref.child("users/\(self.userID)/push_notification").setValue(didAllow)
+            })
             // For iOS 10 data message (sent via FCM)
             Messaging.messaging().delegate = self
         } else {
@@ -41,8 +46,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         let ref = Database.database().reference()
         // Firebase Database에 fcmToken 등록하기
         if let token = Messaging.messaging().fcmToken {
-            let base_ref:String = "users"
-            ref.child(base_ref + "/\(userID)/fcmToken").setValue(token)
+            ref.child("users/\(userID)/fcmToken").setValue(token)
         }
     }
 

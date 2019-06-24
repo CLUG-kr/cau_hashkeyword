@@ -62,10 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             // 리스너로 하면 새로운 유저처럼 또 초기화되어 버린다.. 왜지?
             let user = Auth.auth().currentUser
                 if let user = user {
-                    // fcmToken 등록
-                    let pushManager = PushNotificationManager(userID: user.uid)
-                    pushManager.registerForPushNotifications()
-
                     if(isNewUser!) { // 만약 처음 로그인한 유저라면 Firebase에 정보 추가
                         // The user's ID, unique to the Firebase project.
                         // Do NOT use this value to authenticate with your backend server,
@@ -123,6 +119,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                             self.window?.rootViewController = myTabBar
                         })
                     }
+                    // fcmToken 등록
+                    let pushManager = PushNotificationManager(userID: user.uid)
+                    pushManager.registerForPushNotifications()
                 }
             // }
             // guard let uid = user.userID else { return }
@@ -140,18 +139,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
 
-        let user = Auth.auth().currentUser
-        if let user = user {
-            // Push Notification을 위한 작업
-            // 어디에 배치해야할까요
-
-        }
-
         // 구글 로그인후 Firebase에 사용자 정보 추가
         ref = Database.database().reference()
 
         // terminate 상태에서 Main으로 돌아올 때 실행되는 부분으로 Firebase에서 키워드 정보를 가져옴.
         // 후에 아카이브로 해결할까..?
+        let user = Auth.auth().currentUser
         if let user = user {
             let base_ref:String = "users"
             self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
