@@ -176,9 +176,30 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BmP-WM-9Px" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="vOX-X3-Y6O">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="240"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nodata" translatesAutoresizingMaskIntoConstraints="NO" id="5WO-2X-TT2">
+                            <rect key="frame" x="56" y="56" width="128" height="128"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="128" id="oQf-im-mBr"/>
+                                <constraint firstAttribute="height" constant="128" id="sFI-zA-HhA"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이전 알림이 없습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5rG-Ue-4O8">
+                            <rect key="frame" x="50" y="189" width="140.5" height="21"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="5rG-Ue-4O8" firstAttribute="centerX" secondItem="vOX-X3-Y6O" secondAttribute="centerX" id="9fW-Cb-LOJ"/>
+                        <constraint firstItem="5rG-Ue-4O8" firstAttribute="top" secondItem="5WO-2X-TT2" secondAttribute="bottom" constant="5" id="bW1-32-Was"/>
+                        <constraint firstItem="5WO-2X-TT2" firstAttribute="centerX" secondItem="vOX-X3-Y6O" secondAttribute="centerX" id="cey-dd-UWZ"/>
+                        <constraint firstItem="5WO-2X-TT2" firstAttribute="centerY" secondItem="vOX-X3-Y6O" secondAttribute="centerY" id="dvo-BP-18w"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="NrB-EU-YFR"/>
                 </view>
             </objects>
@@ -491,6 +512,7 @@
         <image name="clock" width="25" height="25"/>
         <image name="hash" width="25" height="25"/>
         <image name="icon" width="880" height="880"/>
+        <image name="nodata" width="512" height="512"/>
         <image name="setting" width="25" height="25"/>
     </resources>
 </document>

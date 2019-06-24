@@ -31,6 +31,7 @@ class ArchiveTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
         // 네비게이션 바
         setupNavBar()
@@ -94,24 +95,20 @@ class ArchiveTableViewController: UITableViewController {
         return searchController.isActive && !searchBarIsEmpty()
     }
 
-    /*
-    // 화면에 noData를 띄울지 결정.
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if dataCenter.studyList.count != 0 {
-            tableView.backgroundView = nil
-            // tableView.backgroundColor = UIColor().colorFromHex("#4C516D")
-        }
-        else {
-            tableView.backgroundView = noDataView
-        }
-        return dataCenter.studyList.count
-    }
-    */
-
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        // 화면에 noData를 띄울지 결정.
+        if data_center.timeline.count != 0 {
+            tableView.separatorStyle = .singleLine
+            tableView.backgroundView = nil
+            // tableView.backgroundColor = UIColor().colorFromHex("#4C516D")
+            return 1
+        }
+        else {
+            tableView.separatorStyle = .none
+            tableView.backgroundView = no_data_view
+            return 0
+        }
     }
 
     // 검색 기능을 위함
