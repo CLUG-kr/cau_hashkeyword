@@ -79,6 +79,7 @@ class MainViewController: UIViewController, UITextFieldDelegate {
 
         // Firebase Configure
         ref = Database.database().reference()
+        
         // 만약 로그인한 적이 없다면 로그인 페이지로 이동
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user == nil { // if let 구문으로 Storyboard 가져오기?

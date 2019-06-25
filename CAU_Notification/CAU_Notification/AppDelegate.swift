@@ -78,8 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         let myTabBar = storyboard.instantiateViewController(withIdentifier: "mainTBC") as! UITabBarController
                         self.window?.rootViewController = myTabBar
                     } else { // 기존에 Firebase Authentication에 있던 유저라면
-                        let base_ref:String = "users"
-                        self.ref.child(base_ref + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
+                        self.ref.child("users" + "/\(user.uid)/").observeSingleEvent(of: .value, with: { (snapshot) in
                             for child in snapshot.children {
                                 let snap = child as! DataSnapshot
                                 switch snap.key{
@@ -170,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                             }
                         }
                     default:
-                        print("Firebase reading error : User")
+                        print("Firebase reading error : not in the case")
                     }
                 }
                 // 이렇게 observe 안에 넣어주어야지 키워드를 불러오고 나서 Main을 보여준다.
@@ -220,11 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-
         // 실시간으로 변경된 값을 Firebase에 업데이트하는 것이 나을까
         // 여기서 한꺼번에 업데이트 하는 것이 더 나을까
-
-
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -249,31 +245,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         monitor.start(queue: queue)
     }
 
+    func getRefFromURL(_ url:String) -> String{
+        let refer = url.components(separatedBy: "//")[1].components(separatedBy: ".")[0]
+        for web in data_center.website { // 웹사이트가 추가되어도 DataCenter만 수정해주면 된다. (유지보수가 쉬움)
+            let parseWeb = web.components(separatedBy: "(")[1].components(separatedBy: ".")[0]
+            var newRefer = web.components(separatedBy: " ")[0]
+
+            // "서울캠퍼스", "안성캠퍼스" 길이가 길어서 TimeLine이 깔끔하지 않으니, 각각 "(서울)", "(안성)"으로 대체
+            if newRefer == "서울캠퍼스" {
+                newRefer = "(서울)" + web.components(separatedBy: " ")[1]
+            }
+            else if newRefer == "안성캠퍼스" {
+                newRefer = "(안성)" + web.components(separatedBy: " ")[1]
+            }
+            else {
+                newRefer = web.components(separatedBy: " ")[0]
+            }
+            
+            if refer == parseWeb {
+                return newRefer
+            }
+        }
+        return "공지사항" // 만약 일치하는 사이트가 없다면 default로 return
+    }
+
+    var databaseHandle:DatabaseHandle?
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-        print("액티브")
+        print("applicationDidBecomeActive")
         // 인터넷 연결 수시로 확인
         checkNetwork()
 
+        // TimelineView 정보 불러오기
+
         ref = Database.database().reference()
-        let base_ref:String = "crawling/webpages"
-        ref.child(base_ref + "/dormitory").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                switch snap.key{
-                case "date":
-                    data_center.dorm.dorm_date = snap.value as! [String]
-                case "title":
-                    data_center.dorm.dorm_title = snap.value as! [String]
-                case "url":
-                    data_center.dorm.dorm_url = snap.value as! [String]
-                default:
-                    print("Firebase reading error : Dormitory")
+        let user = Auth.auth().currentUser
+        if let user = user {
+            // .value는 항상 호출되고 .childChanged는 항상 호출되지 않는 상태...
+            databaseHandle = ref?.child("users/\(user.uid)/pushData").observe(.value) { (snapshot) in
+                // Code to execute when a child is changed under "users/uid"
+                // Take the value from the snapshot and added it to the timeline array
+                var flag = true
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    let pushData = snap.value as! [String]
+                    // firebase DB에 있는 pushData가 app에 없는 데이터인지 확인
+                    if data_center.timeline.count > 0 {
+                        if pushData[1] == data_center.timeline[0].title { // Fatal error: Index out of range
+                            flag = false
+                            break
+                        }
+                    } else {
+                        break
+                    }
+                }
+                if flag {
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        let pushData = snap.value as! [String]
+                        let reference = self.getRefFromURL(pushData[3])
+                        data_center.timeline.insert(Timeline(keyword: pushData[0], title: pushData[1], ref: reference, date: pushData[2], url: pushData[3]), at: 0)
+                    }
                 }
             }
-        })
-
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

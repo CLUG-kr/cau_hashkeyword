@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices // SFSafariViewController 사용
+import Firebase
 
 class ArchiveTableViewCell: UITableViewCell {
 
@@ -31,15 +32,80 @@ class ArchiveTableViewController: UITableViewController {
     }
 
     override func viewDidLoad() {
-
         super.viewDidLoad()
         // 네비게이션 바
         setupNavBar()
+    }
 
-        // 임시용
-        for title in data_center.dorm.dorm_title {
-            data_center.timeline.append(Timeline(title: title, ref: "레퍼런스", date: "YYYY.MM.DD", url: "http://ict.cau.ac.kr/20150610/sub05/sub05_01_list.php?cmd=view&cpage=1&idx=1320&search_gbn=1&search_keyword="))
+    func getRefFromURL(_ url:String) -> String{
+        let refer = url.components(separatedBy: "//")[1].components(separatedBy: ".")[0]
+        for web in data_center.website { // 웹사이트가 추가되어도 DataCenter만 수정해주면 된다. (유지보수가 쉬움)
+            let parseWeb = web.components(separatedBy: "(")[1].components(separatedBy: ".")[0]
+            var newRefer = web.components(separatedBy: " ")[0]
+
+            // "서울캠퍼스", "안성캠퍼스" 길이가 길어서 TimeLine이 깔끔하지 않으니, 각각 "(서울)", "(안성)"으로 대체
+            if newRefer == "서울캠퍼스" {
+                newRefer = "(서울)" + web.components(separatedBy: " ")[1]
+            }
+            else if newRefer == "안성캠퍼스" {
+                newRefer = "(안성)" + web.components(separatedBy: " ")[1]
+            }
+            else {
+                newRefer = web.components(separatedBy: " ")[0]
+            }
+            if refer == parseWeb {
+                return newRefer
+            }
         }
+        return "공지사항" // 만약 일치하는 사이트가 없다면 default로 return
+
+//        switch refer { // 미래에 새로운 웹사이트가 생기면 케이스 추가가 필요한 코드 (유지보수 어려움)
+//            case "cau":
+//            case "libary":
+//            case "dormitory":
+//            case "ict":
+//            case "cse":
+//        }
+    }
+
+    var ref:DatabaseReference?
+    var databaseHandle:DatabaseHandle?
+
+    override func viewDidAppear(_ animated: Bool) {
+        ref = Database.database().reference()
+        let user = Auth.auth().currentUser
+        if let user = user {
+            // .value는 항상 호출되고 .childChanged는 항상 호출되지 않는 상태...
+            databaseHandle = ref?.child("users/\(user.uid)/pushData").observe(.value) { (snapshot) in
+                // Code to execute when a child is changed under "users/uid"
+                // Take the value from the snapshot and added it to the timeline array
+                var flag = true
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    let pushData = snap.value as! [String]
+                    // firebase DB에 있는 pushData가 app에 없는 데이터인지 확인
+                    if data_center.timeline.count > 0 {
+                        
+                        // firebase DB가 매번 새로운 것으로 갈아치우지 않는다면 에러가 날 수도 있는 부분..
+                        if pushData[1] == data_center.timeline[0].title { // Fatal error: Index out of range
+                            flag = false
+                            break
+                        }
+                    } else {
+                        break
+                    }
+                }
+                if flag {
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        let pushData = snap.value as! [String]
+                        let reference = self.getRefFromURL(pushData[3])
+                        data_center.timeline.insert(Timeline(keyword: pushData[0], title: pushData[1], ref: reference, date: pushData[2], url: pushData[3]), at: 0)
+                    }
+                }
+            }
+        }
+        self.tableView.reloadData()
     }
 
     // 검색 (available only in iOS 8+)
@@ -135,6 +201,7 @@ class ArchiveTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
         guard let infoCell = cell as? ArchiveTableViewCell else{
             return cell
@@ -148,18 +215,16 @@ class ArchiveTableViewController: UITableViewController {
         }
 
         infoCell.cell_title.text = data.title
-        // infoCell.cell_title.text = data_center.dorm.dorm_title[indexPath.row]
-        infoCell.cell_detail.text = data_center.timeline[indexPath.row].ref + " #" + data_center.keyword[1]
+        infoCell.cell_detail.text = data_center.timeline[indexPath.row].ref + " #" + data_center.timeline[indexPath.row].keyword
 
         // 키워드 색깔만 파란색으로 설정
         let attributedStr = NSMutableAttributedString(string: infoCell.cell_detail.text!)
-        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:data_center.timeline[indexPath.row].ref.count, length:data_center.keyword[1].count + 2))
+        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:data_center.timeline[indexPath.row].ref.count, length:data_center.timeline[indexPath.row].keyword.count + 2))
         infoCell.cell_detail.attributedText = attributedStr
 
         infoCell.cell_date.text = data_center.timeline[indexPath.row].date
 
         return infoCell
-
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
