@@ -278,7 +278,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         checkNetwork()
 
         // TimelineView 정보 불러오기
-
         ref = Database.database().reference()
         let user = Auth.auth().currentUser
         if let user = user {

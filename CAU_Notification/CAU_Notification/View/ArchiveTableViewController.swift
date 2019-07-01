@@ -207,6 +207,7 @@ class ArchiveTableViewController: UITableViewController {
             return cell
         }
 
+        // 검색을 하고 있는 지에 따라 테이블 뷰에 표현할 데이터를 정의
         let data:Timeline
         if isFiltering() {
             data = filteredData[indexPath.row]
@@ -215,14 +216,14 @@ class ArchiveTableViewController: UITableViewController {
         }
 
         infoCell.cell_title.text = data.title
-        infoCell.cell_detail.text = data_center.timeline[indexPath.row].ref + " #" + data_center.timeline[indexPath.row].keyword
+        infoCell.cell_detail.text = data.ref + " #" + data.keyword
 
         // 키워드 색깔만 파란색으로 설정
         let attributedStr = NSMutableAttributedString(string: infoCell.cell_detail.text!)
-        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:data_center.timeline[indexPath.row].ref.count, length:data_center.timeline[indexPath.row].keyword.count + 2))
+        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor().colorFromHex("0E58F9"), range: NSRange(location:data.ref.count, length:data.keyword.count + 2))
         infoCell.cell_detail.attributedText = attributedStr
 
-        infoCell.cell_date.text = data_center.timeline[indexPath.row].date
+        infoCell.cell_date.text = data.date
 
         return infoCell
     }
