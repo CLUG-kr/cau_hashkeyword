@@ -14,17 +14,17 @@
 ---
 
 ## 2. 멤버(Members)
-* Changsung Lim : [18changsung](https://github.com/18changsung) ~~고독한 개발자입니다ㅠㅠ~~
+* Changsung Lim : [18changsung](https://github.com/18changsung)
 
 ---
 
 ## 3. 사용자 인터페이스(User Interface)
 Push Notification &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Main View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+TimeLine View &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Preference View
 
-<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/58111254-1ab53800-7c2c-11e9-94cf-6659eba1f556.PNG">&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57941593-57babb00-790a-11e9-8c13-efe37b34deeb.PNG">&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
+<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/58111254-1ab53800-7c2c-11e9-94cf-6659eba1f556.PNG">&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57941593-57babb00-790a-11e9-8c13-efe37b34deeb.PNG">&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475880-481af100-72d0-11e9-8edc-4587aa2f1a9c.PNG">&nbsp;&nbsp;&nbsp;<img width="200" alt="hashview" src="https://user-images.githubusercontent.com/38272356/57475878-46512d80-72d0-11e9-8318-69c4d31e5228.PNG">
 
 ---
 
